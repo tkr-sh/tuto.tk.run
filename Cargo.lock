@@ -3,31 +3,6 @@
 version = 4
 
 [[package]]
-name = "programming_tutorial"
-version = "0.1.0"
-dependencies = [
- "axum",
- "colog",
- "ctor",
- "dotenvy",
- "http-body-util",
- "hyper",
- "itertools",
- "log",
- "regex",
- "serde",
- "serde_json",
- "strum",
- "strum_macros",
- "tokio",
- "toml",
- "tower-http",
- "walkdir",
- "wini-macros",
- "wini-maud",
-]
-
-[[package]]
 name = "addr2line"
 version = "0.24.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -707,6 +682,31 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "37d3544b3f2748c54e147655edb5025752e2303145b5aefb3c3ea2c78b973bb0"
 dependencies = [
  "unicode-ident",
+]
+
+[[package]]
+name = "programming_tutorial"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "colog",
+ "ctor",
+ "dotenvy",
+ "http-body-util",
+ "hyper",
+ "itertools",
+ "log",
+ "regex",
+ "serde",
+ "serde_json",
+ "strum",
+ "strum_macros",
+ "tokio",
+ "toml",
+ "tower-http",
+ "walkdir",
+ "wini-macros",
+ "wini-maud",
 ]
 
 [[package]]

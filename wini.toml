@@ -1,6 +1,6 @@
 [origin]
 last_commit_hash = "447b51dc495237f2b058ecbe9cdb07a4b259e2f5"
-remote_url = "https://codeberg.org/wini/wini-template"
+remote_url = "https://github.com/wini/wini-template"
 branch = "main"
 name = "TEMPLATE_NAME_TO_RESOLVE"
 
