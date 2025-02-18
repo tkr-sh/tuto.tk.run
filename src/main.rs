@@ -1,6 +1,6 @@
 use {
     std::sync::LazyLock,
-    PROJECT_NAME_TO_RESOLVE::{
+    programming_tutorial::{
         cron,
         server,
         shared::wini::{

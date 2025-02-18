@@ -19,7 +19,7 @@
 ///
 /// ```
 /// use std::path::PathBuf;
-/// use PROJECT_NAME_TO_RESOLVE::concat_paths;
+/// use programming_tutorial::concat_paths;
 ///
 /// // Concatenate multiple path segments
 /// let result = concat_paths!("./foo/", "./bar", "./baz/");

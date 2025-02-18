@@ -1,6 +1,6 @@
 # https://doc.rust-lang.org/cargo/index.html
 [package]
-name = "PROJECT_NAME_TO_RESOLVE"
+name = "programming_tutorial"
 version = "0.1.0"
 edition = "2021"
 
