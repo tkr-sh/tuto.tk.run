@@ -1,5 +1,4 @@
 use {
-    std::sync::LazyLock,
     programming_tutorial::{
         cron,
         server,
@@ -15,6 +14,7 @@ use {
             PUBLIC_ENDPOINTS,
         },
     },
+    std::sync::LazyLock,
 };
 
 
@@ -33,6 +33,8 @@ async fn main() {
     LazyLock::force(&SCRIPTS_DEPENDENCIES);
     LazyLock::force(&COMPONENTS_FILES);
     LazyLock::force(&SERVER_CONFIG);
+
+    programming_tutorial::pages::init();
 
     // Verify that all the kind of data returned by the server (html, css, js, etc.) have their
     // cache rules being correctly setup
