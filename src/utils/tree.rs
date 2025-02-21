@@ -44,6 +44,27 @@ impl<'l> PageOrDirectory<'l> {
         }
     }
 
+    pub fn rec_get_page_titles(&self) -> HashMap<&str, &str> {
+        println!("{self:#?}");
+        match self {
+            PageOrDirectory::Page { title, page } => HashMap::from_iter([(*page, *title)]),
+            PageOrDirectory::Directory {
+                pages, page, title, ..
+            } => {
+                let mut final_pages = HashMap::new();
+
+                if let Some(page) = page {
+                    final_pages.insert(*page, *title);
+                }
+
+                for page in pages {
+                    final_pages.extend(page.rec_get_page_titles());
+                }
+                final_pages
+            },
+        }
+    }
+
     pub fn rec_display(&self) -> Markup {
         match self {
             PageOrDirectory::Page { title, page } => {
@@ -51,7 +72,7 @@ impl<'l> PageOrDirectory<'l> {
                     li.cursor
                         hx-get={"/htmx/" (page)}
                         "hx-on::after-request"="hlCurrentPage()"
-                        hx-target="#horizontal-content"
+                        hx-target="body"
                         hx-replace-url={"/doc/" (page)}
                     { (title) }
                 }
@@ -64,7 +85,7 @@ impl<'l> PageOrDirectory<'l> {
                         li.cursor
                             hx-get={"/htmx/" (page)}
                             "hx-on::after-request"="hlCurrentPage()"
-                            hx-target="#horizontal-content"
+                            hx-target="body"
                             hx-replace-url={"/doc/" (page)}
                         { (title) }
                     } @else {

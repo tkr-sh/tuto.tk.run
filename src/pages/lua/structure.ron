@@ -9,7 +9,7 @@ Directory(
             page: Some("introduction-guess"),
             title: "Guess the number",
             pages: [
-                // Page(title: "Pages", page: "pages"),
+                Page(title: "First line", page: "first-line"),
                 // Page(title: "Components", page: "components"),
                 // Page(title: "Layouts", page: "layout"),
             ],
