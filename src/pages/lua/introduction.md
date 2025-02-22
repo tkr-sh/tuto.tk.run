@@ -4,7 +4,9 @@ This tutorial is meant for people that never programmed and that want to learn h
 
 This guide doesn't require any previous knowledge in programming, mathematics, physics or algorithmics. The only thing that is important is a basic knowledge in english (knowing words like "if", "else", "end", "repeat", "while", ...).
 
-This guide will let you run your own Lua program to interactively learn the language.
+One thing that I really advice you to do is: DON'T USE ANY AI. Try to learn everything by yourself and with this tutorial. This tutorial was made so you learn things in a specific order and it doesn't require any AI.
+
+This guide will let you run your own Lua program in the website to interactively learn the language, so no need to worry about "how do I install Lua ?" for now.
 
 So without waiting more, _**let's jump in!**_
 

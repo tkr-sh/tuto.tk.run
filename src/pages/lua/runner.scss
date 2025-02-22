@@ -25,6 +25,7 @@
     gap: 4px;
 
     button {
+      display: flex;
       font-size: 16px;
 
       &.run::after {
@@ -34,11 +35,13 @@
 
       &.open::after {
         content: "🔗";
+        display: block;
+        margin-left: -16px;
+        width: 16px;
       }
 
       &::after {
         opacity: 0;
-        margin-left: -14px;
         transition: .3s;
       }
 

@@ -27,7 +27,25 @@
                     fd
                     ripgrep
                     rust-bin.nightly.latest.default
+                    just
                 ];
+            };
+
+            packages.default = pkgs.stdenv.mkDerivation {
+                name = "build-server";
+                buildInputs = with pkgs; [
+                    yq-go
+                    coreutils
+                    bun
+                    dart-sass
+                    fd
+                    ripgrep
+                    rust-bin.nightly.latest.default
+                    just
+                ];
+                installPhase = ''
+                    just build-prod
+                '';
             };
         }
     );

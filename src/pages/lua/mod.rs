@@ -20,7 +20,7 @@ pub static PAGE_TITLE_BY_PATH: LazyLock<HashMap<&str, &str>> =
 
 
 #[cache]
-#[page]
+#[page(title = "TK's Lua tutorial")]
 pub async fn render(req: Request) -> Markup {
     let requested_page = req
         .uri()
@@ -51,14 +51,14 @@ pub async fn render(req: Request) -> Markup {
             }
         }
         main {
-            #content {
+            #content class=(requested_page) {
                 (PreEscaped(result))
             }
         }
         footer.buttons-previous-next {
             @if let Some(previous_page) = previous_page {
                 button.previous.lua-button
-                    hx-on-click={"setHlPage('"(previous_page)"')"}
+                    hx-on-click={"onClickNewPage('"(previous_page)"')"}
                     hx-get={"/htmx/" (previous_page)}
                     hx-target="#main"
                     hx-replace-url={"/lua/" (previous_page)}
@@ -73,7 +73,7 @@ pub async fn render(req: Request) -> Markup {
                     hx-get={"/htmx/" (next_page)}
                     hx-replace-url={"/lua/" (next_page)}
                     hx-target="#main"
-                    hx-on-click={"setHlPage('"(next_page)"')"}
+                    hx-on-click={"onClickNewPage('"(next_page)"')"}
                 {
                     "Next"
                 }

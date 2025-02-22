@@ -19,7 +19,7 @@ What happens is the following:
 
 `read()` asks the user for a string and captures it.
 
-**Before running the example:** when you'll run it, it will continuously try to read a `string` from you. So, after you entered your first `input`, you should click on `Cancel` in your browser pop-up or press `Escape`.
+**Before running the example:** don't disable the popup for this site, else you won't be able to `read()` again!
 
 
 

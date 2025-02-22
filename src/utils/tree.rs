@@ -71,7 +71,7 @@ impl<'l> PageOrDirectory<'l> {
                 html! {
                     li.cursor
                         hx-get={"/htmx/" (page)}
-                        "hx-on::after-request"="hlCurrentPage()"
+                        "hx-on::after-request"="onClickNewPage('')"
                         hx-target="#main"
                         hx-replace-url={"/lua/" (page)}
                     { (title) }
@@ -84,7 +84,7 @@ impl<'l> PageOrDirectory<'l> {
                     @if let Some(page) = page {
                         li.cursor
                             hx-get={"/htmx/" (page)}
-                            "hx-on::after-request"="hlCurrentPage()"
+                            "hx-on::after-request"="onClickNewPage('')"
                             hx-target="#main"
                             hx-replace-url={"/lua/" (page)}
                         { (title) }

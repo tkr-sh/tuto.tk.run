@@ -1,4 +1,5 @@
 import "htmx.org";
+import { buildRunners} from "./runner";
 
 let isNavBarHidden = false;
 
@@ -19,7 +20,7 @@ const hlCurrentPage = () => {
 
     setHlPage(currentPage);
 
-    if (window.innerWidth < 1200) {
+    if (window.innerWidth < 1200 && !isNavBarHidden) {
         switchHidden();
     }
 }
@@ -40,6 +41,32 @@ const switchHidden = () => {
 
     isNavBarHidden = !isNavBarHidden;
 }
+
+const onClickNewPage = (newPage: string) => {
+    console.log("pls");
+    setHlPage(newPage)
+    recCheckNewPage($("#content").classList[0], 0);
+
+}
+
+const recCheckNewPage = (notClass: string, tries: number) => {
+    setTimeout(() => {
+        console.log("uwu")
+        console.log($("#content").classList, notClass)
+        if (!$("#content").classList.contains(notClass)) {
+            onNewPage()
+        } else if (tries < 1000) {
+            recCheckNewPage(notClass, tries + 1)
+        }
+    }, 10);
+}
+
+const onNewPage = () => {
+    hlCurrentPage();
+    buildRunners();
+}
+
+
 
 
 // We want to highlight the current page we're on in the `li`s
