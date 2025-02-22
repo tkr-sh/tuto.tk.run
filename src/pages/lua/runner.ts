@@ -21,19 +21,31 @@ const buildRunners = () => {
 
         const runBtn = runner.$(".run")[0];
 
+
         runBtn.on("click", async () => {
             rmOutput(runner);
+            let s = "";
             const lua = await factory.createEngine();
 
             try {
-                let s = "";
-                lua.global.set('read',  lua.global.get('io').read);
+                lua.global.set('read', () => {
+                    let input = prompt("Input:");
+                    console.log(input, s);
+                    s += input  + "\n";
+                    return input
+                });
                 lua.global.set('random',  lua.global.get('math').random);
-                lua.global.set('print', (...args: any[]) => s += args.join("\t") + "\n")
+                lua.global.set('print', (...args: any[]) => {
+                    console.log("uwuwuu")
+                    s += args.join("\t") + "\n";
+                    console.log(s)
+                    addOutput(runner, s);
+                });
+                // await lua.doString(runner.$("pre")[0].text())
                 await lua.doString(runner.$("pre")[0].text())
                 addOutput(runner, s);
             } catch (e) {
-                addOutput(runner, "" + e);
+                addOutput(runner, s + "\n" + e);
             } finally {
                 lua.global.close()
             }
@@ -51,6 +63,7 @@ const rmOutput = (c: HTMLElement) => {
 }
 const addOutput = (c: HTMLElement, stdout: string) => {
     rmOutput(c);
+    console.log(c);
 
     const newOutput = $new(
         "div",
@@ -58,5 +71,6 @@ const addOutput = (c: HTMLElement, stdout: string) => {
         "",
         stdout.split("\n").map(e => $new("div", {}, e))
     );
+    console.log(newOutput);
     c.add(newOutput)
 }

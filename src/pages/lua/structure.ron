@@ -15,6 +15,7 @@ Directory(
                 Page(title: "Repeat Until", page: "repeat-until"),
                 Page(title: "Read", page: "read"),
                 Page(title: "Checking for the number", page: "checking-the-number"),
+                Page(title: "The end ?", page: "end"),
                 // Page(title: "Components", page: "components"),
                 // Page(title: "Layouts", page: "layout"),
             ],
