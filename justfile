@@ -14,7 +14,7 @@ check: compile-ts compile-scss
     cargo check
 
 # Create the binary for the production
-build-prod: compile-ts compile-scss
+build-prod: js-i js-sync-packages  compile-ts compile-scss
     ENV_TYPE="PROD" cargo build --release
 
 # Run in production

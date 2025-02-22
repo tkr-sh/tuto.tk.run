@@ -19,7 +19,7 @@ pub static PAGE_TITLE_BY_PATH: LazyLock<HashMap<&str, &str>> =
     LazyLock::new(|| PAGES_STRUCTURE.rec_get_page_titles());
 
 
-#[cache]
+// #[cache]
 #[page(title = "TK's Lua tutorial")]
 pub async fn render(req: Request) -> Markup {
     let requested_page = req
