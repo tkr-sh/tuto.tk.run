@@ -64,7 +64,10 @@ const recCheckNewPage = (notClass: string, tries: number) => {
 const onNewPage = () => {
     hlCurrentPage();
     buildRunners();
-    window.scrollTo(0, 0);
+    $('main').forEach(main => main.scrollTop = 0);
+    setTimeout(() => {
+        window.scrollTo(0,1);
+    }, 10);
 }
 
 
