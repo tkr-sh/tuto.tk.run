@@ -25,6 +25,7 @@ pub async fn start() {
         .route("/lua", get(pages::lua::render))
         .route("/lua/{*wildcard}", get(pages::lua::render))
         .layer(middleware::from_fn(layout::lua::render))
+        .route("/", get(pages::home::render))
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))
         .route("/{*wildcard}", get(handling_file::handle_file))
