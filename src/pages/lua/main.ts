@@ -1,5 +1,5 @@
 import "htmx.org";
-import { buildRunners} from "./runner";
+import { buildRunners } from "./runner";
 
 let isNavBarHidden = false;
 
@@ -68,7 +68,9 @@ const onNewPage = () => {
 }
 
 
-
+if (window.innerWidth < 1200) {
+    switchHidden();
+}
 
 // We want to highlight the current page we're on in the `li`s
 hlCurrentPage();
