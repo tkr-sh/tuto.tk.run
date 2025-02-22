@@ -200,5 +200,32 @@ code {
     font-size: 14px;
 
   }
+}
 
+
+.for-technical {
+  > button {
+    border: none;
+    background: #975;
+    border-radius: 4px;
+    color: #fff;
+    transition: .3s;
+    cursor: pointer;
+    padding-inline: 8px;
+    font-size: 16px;
+
+    &:hover {
+      background: #A86;
+    }
+  }
+
+  > p {
+    display:  none;
+  }
+
+  > p.visible {
+    border-left: 4px solid #975;
+    padding-left: 16px;
+    display: block !important;
+  }
 }

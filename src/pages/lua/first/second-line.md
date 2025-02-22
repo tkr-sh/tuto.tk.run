@@ -53,35 +53,3 @@ number_to_guess = random(1, 100)
 So, this line is executing the function `random` with as input: `1` and `100`, and put the ouput of the computation into `number_to_guess`. We never defined what `random` did. But, Lua comes with some "built-in"s function to help developers! And in our case, there is a function `random` that wants 2 number in input and that generates a random number between the first number (in our case `1`) and the second number (in our case `2`).
 
 Perfect! We now have generated the number that the user has to guess!
-
-
-
-
-<button id="toggle-code" class="lua-button"/>
-
-<div id="hidden-code">
-
-```lua
-number_of_tries = 0
-number_to_guess = random(1, 100)
-
-print("Try to guess the random number between 1 and 100!")
-
-repeat
-	user_guess = tonumber(read())
-	number_of_tries = number_of_tries + 1
-
-	if number_to_guess < user_guess then
-		print("The number is lower!")
-	end
-
-	if number_to_guess > user_guess then
-		print("The number is higher!")
-	end
-until user_guess == number_to_guess
-
-print("You won in " .. number_of_tries .. " tries!")
-```
-
-</div>
-

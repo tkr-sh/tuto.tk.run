@@ -45,12 +45,12 @@ When using loops like `until`, you must provide a `boolean` (`true` or `false`) 
 
 And most of the time, you do that with relational operators:
 
-- `==`: Check if two values are equals. **NOT TO BE CONFUSED WITH 1 `=`**. 1 `=` is to assign a value, 2 `=` (`==`) is to check that 2 values are equals. If they are the same the value is `true` else `false`
+- `==`: Check if two values are equals. **NOT TO BE CONFUSED WITH 1 `=`**. 1 `=` is to assign a value, 2 `=` (`==`) is to check that 2 values are equals. If they are the same, the value is `true` else `false`
 - `~=`: Check that two values are different. If they are different the value is `true` else `false`
-- `>`: Check that the left value is greater than the right one. If it is the value is `true` else `false`
-- `<`: Check that the left value is less than the right one. If it is the value is `true` else `false`
-- `>=`: Check that the left value is greater than **OR EQUAL** to the right one. If it is the value is `true` else `false`
-- `<=`: Check that the left value is less than **OR EQUAL** to the right one. If it is the value is `true` else `false`
+- `>`: Check that the left value is greater than the right one. If it is, the value is `true` else `false`
+- `<`: Check that the left value is less than the right one. If it is, the value is `true` else `false`
+- `>=`: Check that the left value is greater than **OR EQUAL** to the right one. If it is, the value is `true` else `false`
+- `<=`: Check that the left value is less than **OR EQUAL** to the right one. If it is, the value is `true` else `false`
 
 
 <div class="runner">

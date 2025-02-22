@@ -4,7 +4,7 @@ number_of_tries = 0
 
 This is the first line that we see in the program.
 
-Usually, when you want to understand what a program is doing, you'll read it line by line, like you would read a normal english text.
+Usually, when you want to understand what a program is doing, you'll read it line by line, like you would read a normal english text, so we start here.
 
 
 ## Ok cool, but what is this line doing ?
@@ -57,33 +57,10 @@ So, this line is just putting the number `0` into the variable `number_of_tries`
 
 
 
-[^1]: Well in reality there are 8 types but for now, only 6 are importants :). <https://www.lua.org/pil/2.html>
+[^1]: 
 
+<div class="for-technical">
 
-<button id="toggle-code" class="lua-button"/>
-
-<div id="hidden-code">
-
-```lua
-number_of_tries = 0
-number_to_guess = random(1, 100)
-
-print("Try to guess the random number between 1 and 100!")
-
-repeat
-	user_guess = tonumber(read())
-	number_of_tries = number_of_tries + 1
-
-	if number_to_guess < user_guess then
-		print("The number is lower!")
-	end
-
-	if number_to_guess > user_guess then
-		print("The number is higher!")
-	end
-until user_guess == number_to_guess
-
-print("You won in " .. number_of_tries .. " tries!")
-```
+Well in reality there are 8 types but for now, only 6 are importants :). <https://www.lua.org/pil/2.html>
 
 </div>

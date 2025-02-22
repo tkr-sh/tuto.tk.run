@@ -4,16 +4,6 @@ import { buildRunners } from "./runner";
 let isNavBarHidden = false;
 
 
-$("#toggle-code")?.on("click", (_) => {
-    console.log("you?")
-    let hiddenCode = $("#hidden-code");
-    if (hiddenCode.hasClass("visible")) {
-        hiddenCode.rmClass("visible")
-    } else {
-        hiddenCode.addClass("visible")
-    }
-})
-
 const hlCurrentPage = () => {
     const currentUrl = window.location.pathname;
     const currentPage = currentUrl.split("/")[2] ?? "introduction";
@@ -70,6 +60,29 @@ const onNewPage = () => {
     }, 10);
 }
 
+const toggleTechnical = () => {
+    $(".for-technical").forEach(el => {
+        let currentHtml = el.innerHTML;
+        el.innerHTML = "";
+        const button = $new("button", {}, "For technical people");
+        const content = $new("p", {}, "");
+        content.innerHTML = currentHtml;
+        button.on("click", () => {
+            if (content.hasClass("visible")) {
+                content.rmClass("visible");
+            } else {
+                content.addClass("visible");
+            }
+        });
+
+        el.add([
+            button,
+            content
+        ])
+    })
+}
+
+toggleTechnical();
 
 if (window.innerWidth < 1200) {
     switchHidden();
