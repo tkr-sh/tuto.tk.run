@@ -64,6 +64,7 @@ const recCheckNewPage = (notClass: string, tries: number) => {
 const onNewPage = () => {
     hlCurrentPage();
     buildRunners();
+    window.scrollTo(0, 0);
 }
 
 
