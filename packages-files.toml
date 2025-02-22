@@ -16,3 +16,4 @@
 # leaflet = ["dist/leaflet.js", "dist/leaflet.css"]
 # ```
 "htmx.org" = "./dist/htmx.min.js"
+"wasmoon" = "./dist/index.js"

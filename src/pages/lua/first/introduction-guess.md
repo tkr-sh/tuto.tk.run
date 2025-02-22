@@ -1,4 +1,4 @@
-This is the first program that we will study! Don't worry we will go through it VERY slowly, so it's ok if you understand anything yet! We will see after understanding it, how to run it on your computer.
+This is the first program that we will study! Don't worry we will go through it VERY slowly, so it's ok if you don't understand anything yet!
 
 ```lua
 number_of_tries = 0
@@ -22,10 +22,10 @@ until user_guess == number_to_guess
 print("You won in " .. number_of_tries .. " tries!")
 ```
 
-What this program does, is playing the game of "find the number":
+What this program does is creating the game of "find the number":
 
 ```
-Try to guess the random number that is between 1 and 100!
+Try to guess the random number between 1 and 100!
 50
 The number is higher
 75

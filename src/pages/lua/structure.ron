@@ -10,6 +10,11 @@ Directory(
             title: "Guess the number",
             pages: [
                 Page(title: "First line", page: "first-line"),
+                Page(title: "Second line", page: "second-line"),
+                Page(title: "Print line", page: "print-line"),
+                Page(title: "Repeat Until", page: "repeat-until"),
+                Page(title: "Read", page: "read"),
+                Page(title: "Checking for the number", page: "checking-the-number"),
                 // Page(title: "Components", page: "components"),
                 // Page(title: "Layouts", page: "layout"),
             ],

@@ -1,0 +1,54 @@
+.runner {
+  background: #111;
+  padding: 10px;
+  border-radius: 10px;
+
+  header {
+    font-size: 18px;
+    color: #88AAFF;
+    text-align: left;
+  }
+
+  > pre {
+    background: #1B1B1B !important;
+  }
+
+  .output {
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    background: #1B1B1B;
+  }
+
+  footer {
+    display: flex;
+    gap: 4px;
+
+    button {
+      font-size: 16px;
+
+      &.run::after {
+        content: ">";
+        margin-left: -10px;
+      }
+
+      &.open::after {
+        content: "🔗";
+      }
+
+      &::after {
+        opacity: 0;
+        margin-left: -14px;
+        transition: .3s;
+      }
+
+      &:hover {
+        &::after {
+          opacity: 1;
+          margin-left: 4px;
+        }
+      }
+
+    }
+  }
+}

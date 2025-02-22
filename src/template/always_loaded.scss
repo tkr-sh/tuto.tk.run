@@ -8,3 +8,19 @@ body, input, button { background: #181818 }
 * {
   font-family: Poppins;
 }
+
+.lua-button {
+  background: #4466F8;
+  color: #fff;
+  transition: .3s;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+  padding-block: 6px;
+  padding-inline: 14px;
+  border-radius: 4px;
+
+  &:hover {
+    background: #5577FF;
+  }
+}

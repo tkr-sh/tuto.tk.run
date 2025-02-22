@@ -3,7 +3,7 @@ import "htmx.org";
 let isNavBarHidden = false;
 
 
-$("#toggle-code").on("click", (_) => {
+$("#toggle-code")?.on("click", (_) => {
     console.log("you?")
     let hiddenCode = $("#hidden-code");
     if (hiddenCode.hasClass("visible")) {
@@ -25,26 +25,23 @@ const hlCurrentPage = () => {
 }
 
 const setHlPage = (s: string) => {
+    // $("#hide-sidebar").removeEventListener("click", switchHidden);
     $("li").forEach(e => s !== e.getAttribute("hx-replace-url")?.split("/")?.at(-1) ? e.rmClass("active") : e.addClass("active"));
 }
 
 const switchHidden = () => {
     if (isNavBarHidden) {
         $("#sidebar").rmClass("hidden");
+        $("#hide-sidebar").text("<");
     } else {
         $("#sidebar").addClass("hidden");
+        $("#hide-sidebar").text(">");
     }
 
     isNavBarHidden = !isNavBarHidden;
 }
 
-$("#hide-sidebar").on("click", switchHidden)
 
-
-// $("#hidden-code").on("click", (_) => {
-//     console.log("wtf");
-//     console.log($("#hidden-code"))
-//     console.log($("#hidden-code").classList)
-//     document.getElementById("hidden-code")?.classList.remove("visible")
-//     $("#hidden-code").rmClass("visible");
-// })
+// We want to highlight the current page we're on in the `li`s
+hlCurrentPage();
+$("#hide-sidebar").on("click", switchHidden);

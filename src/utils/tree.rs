@@ -72,8 +72,8 @@ impl<'l> PageOrDirectory<'l> {
                     li.cursor
                         hx-get={"/htmx/" (page)}
                         "hx-on::after-request"="hlCurrentPage()"
-                        hx-target="body"
-                        hx-replace-url={"/doc/" (page)}
+                        hx-target="#main"
+                        hx-replace-url={"/lua/" (page)}
                     { (title) }
                 }
             },
@@ -85,8 +85,8 @@ impl<'l> PageOrDirectory<'l> {
                         li.cursor
                             hx-get={"/htmx/" (page)}
                             "hx-on::after-request"="hlCurrentPage()"
-                            hx-target="body"
-                            hx-replace-url={"/doc/" (page)}
+                            hx-target="#main"
+                            hx-replace-url={"/lua/" (page)}
                         { (title) }
                     } @else {
                         li { (title) }

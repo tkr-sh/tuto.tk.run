@@ -1,6 +1,6 @@
 use {
     crate::{
-        layout::header,
+        layout,
         pages,
         shared::wini::PORT,
         template,
@@ -22,9 +22,9 @@ pub async fn start() {
 
     // The main router of the application is defined here
     let app = Router::new()
-        .layer(middleware::from_fn(header::render))
         .route("/lua", get(pages::lua::render))
         .route("/lua/{*wildcard}", get(pages::lua::render))
+        .layer(middleware::from_fn(layout::lua::render))
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))
         .route("/{*wildcard}", get(handling_file::handle_file))

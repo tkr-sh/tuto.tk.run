@@ -8,7 +8,7 @@ pub async fn render() -> Markup {
     html! {
         main #not-found {
             h1 { "Not found!" }
-            a href="/doc/introduction" {
+            a href="/lua/introduction" {
                 "Go to main page"
             }
         }

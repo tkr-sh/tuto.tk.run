@@ -34,63 +34,51 @@ pub async fn render(req: Request) -> Markup {
         return html! { [notfound::render] };
     };
 
-    println!("{PAGE_TITLE_BY_PATH:#?}");
-
     let (previous_page, next_page) = PAGES_STRUCTURE.get_nearest_pages(requested_page);
 
-
     html! {
-        nav #sidebar {
-            (PAGES_STRUCTURE.rec_display())
+        header {
+            h1 {
+                "TK's "
+                span #lua-title {
+                    "Lua"
+                }
+                " tutorial"
+            }
+            .spacer {}
+            h2 {
+                (PAGE_TITLE_BY_PATH.get(requested_page).as_deref().unwrap_or_else(|| &""))
+            }
         }
-        main #main {
-            header {
-                button #hide-sidebar {
-                    "uwu"
-
-                }
-                h1 {
-                    "TK's "
-                    span #lua-title {
-                        "Lua"
-                    }
-                    " tutorial"
-                }
-                .spacer {}
-                h2 {
-                    (PAGE_TITLE_BY_PATH.get(requested_page).as_deref().unwrap_or_else(|| &""))
-                }
+        main {
+            #content {
+                (PreEscaped(result))
             }
-            main {
-                #content {
-                    (PreEscaped(result))
+        }
+        footer.buttons-previous-next {
+            @if let Some(previous_page) = previous_page {
+                button.previous.lua-button
+                    hx-on-click={"setHlPage('"(previous_page)"')"}
+                    hx-get={"/htmx/" (previous_page)}
+                    hx-target="#main"
+                    hx-replace-url={"/lua/" (previous_page)}
+                {
+                    "Previous"
                 }
+            } @else {
+                div .placeholder-previous-next {}
             }
-            footer.buttons-previous-next {
-                @if let Some(previous_page) = previous_page {
-                    button.previous
-                        hx-on-click={"setHlPage('"(previous_page)"')"}
-                        hx-get={"/htmx/" (previous_page)}
-                        hx-target="body"
-                        hx-replace-url={"/lua/" (previous_page)}
-                    {
-                        "Previous"
-                    }
-                } @else {
-                    div .placeholder-previous-next {}
+            @if let Some(next_page) = next_page {
+                button.next.lua-button
+                    hx-get={"/htmx/" (next_page)}
+                    hx-replace-url={"/lua/" (next_page)}
+                    hx-target="#main"
+                    hx-on-click={"setHlPage('"(next_page)"')"}
+                {
+                    "Next"
                 }
-                @if let Some(next_page) = next_page {
-                    button.next
-                        hx-get={"/htmx/" (next_page)}
-                        hx-replace-url={"/lua/" (next_page)}
-                        hx-target="body"
-                        hx-on-click={"setHlPage('"(next_page)"')"}
-                    {
-                        "Next"
-                    }
-                } @else {
-                    .placeholder-previous-next {}
-                }
+            } @else {
+                .placeholder-previous-next {}
             }
         }
     }
