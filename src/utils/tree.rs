@@ -1,5 +1,5 @@
 use {
-    super::style_code,
+    super::{language::Language, style_code},
     itertools::Itertools,
     maud::{html, Markup, PreEscaped},
     pulldown_cmark::Options,
@@ -10,12 +10,12 @@ use {
 #[derive(Debug, serde::Deserialize)]
 pub enum PageOrDirectory<'l> {
     Page {
-        title: &'l str,
+        title: Title<'l>,
         page: &'l str,
     },
     Directory {
         is_ordered: bool,
-        title: &'l str,
+        title: Title<'l>,
         page: Option<&'l str>,
         pages: Vec<PageOrDirectory<'l>>,
     },
@@ -26,6 +26,28 @@ enum VecOrStr<'l> {
     Vec(Vec<&'l str>),
     Str(&'l str),
 }
+
+#[derive(Debug, serde::Deserialize, Default)]
+pub(crate) struct Title<'l> {
+    en: &'l str,
+    es: &'l str,
+    pt: &'l str,
+    fr: &'l str,
+    de: &'l str,
+}
+
+impl<'l> Title<'l> {
+    pub(crate) fn str_by_language(&'l self, language: &Language) -> &'l str {
+        match language {
+            Language::English => self.en,
+            Language::Spanish => self.es,
+            Language::Portugese => self.pt,
+            Language::French => self.fr,
+            Language::Deustch => self.de,
+        }
+    }
+}
+
 
 impl<'l> PageOrDirectory<'l> {
     fn rec_get_pages(&self) -> VecOrStr {
@@ -44,17 +66,17 @@ impl<'l> PageOrDirectory<'l> {
         }
     }
 
-    pub fn rec_get_page_titles(&self) -> HashMap<&str, &str> {
+    pub fn rec_get_page_titles(&self) -> HashMap<&str, &Title> {
         println!("{self:#?}");
         match self {
-            PageOrDirectory::Page { title, page } => HashMap::from_iter([(*page, *title)]),
+            PageOrDirectory::Page { title, page } => HashMap::from_iter([(*page, title)]),
             PageOrDirectory::Directory {
                 pages, page, title, ..
             } => {
                 let mut final_pages = HashMap::new();
 
                 if let Some(page) = page {
-                    final_pages.insert(*page, *title);
+                    final_pages.insert(*page, title);
                 }
 
                 for page in pages {
@@ -65,7 +87,7 @@ impl<'l> PageOrDirectory<'l> {
         }
     }
 
-    pub fn rec_display(&self) -> Markup {
+    pub fn rec_display(&self, language: &Language) -> Markup {
         match self {
             PageOrDirectory::Page { title, page } => {
                 html! {
@@ -74,7 +96,7 @@ impl<'l> PageOrDirectory<'l> {
                         "hx-on::after-request"="onClickNewPage('')"
                         hx-target="#main"
                         hx-replace-url={"/lua/" (page)}
-                    { (title) }
+                    { (title.str_by_language(language)) }
                 }
             },
             PageOrDirectory::Directory {
@@ -87,13 +109,13 @@ impl<'l> PageOrDirectory<'l> {
                             "hx-on::after-request"="onClickNewPage('')"
                             hx-target="#main"
                             hx-replace-url={"/lua/" (page)}
-                        { (title) }
+                        { (title.str_by_language(language)) }
                     } @else {
-                        li { (title) }
+                        li { (title.str_by_language(language)) }
                     }
                     ol {
                         @for page in pages {
-                            (page.rec_display())
+                            (page.rec_display(language))
                         }
                     }
                 }

@@ -37,16 +37,21 @@ pub fn layout(args: TokenStream, item: TokenStream) -> TokenStream {
             next: axum::middleware::Next
         ) -> crate::shared::wini::err::ServerResult<axum::response::Response> {
             use itertools::Itertools;
+            use std::str::FromStr;
 
             const FILES_IN_CURRENT_DIR: &str = #files_in_current_dir;
 
+            let language = crate::utils::language::Language::from_str(match req.uri().authority() {
+                Some(auth) => auth.host().split(".").next().unwrap_or(""),
+                None => "",
+            })?;
 
             let rep = next.run(req).await;
             let (mut res_parts, res_body) = rep.into_parts();
 
             let resp_str = crate::utils::wini::buffer::buffer_to_string(res_body).await.unwrap();
 
-            let html = #new_name(&resp_str).await;
+            let html = #new_name(&resp_str, language).await;
 
             let files_from_components = html.linked_files.iter().join(";");
 

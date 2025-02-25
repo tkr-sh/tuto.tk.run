@@ -1,7 +1,10 @@
 use {
     crate::{
         components::notfound,
-        utils::tree::{compute_pages, PageOrDirectory},
+        utils::{
+            language::Language,
+            tree::{compute_pages, PageOrDirectory, Title},
+        },
     },
     axum::extract::Request,
     maud::{html, Markup, PreEscaped},
@@ -15,7 +18,7 @@ pub static PAGES_STRUCTURE: LazyLock<PageOrDirectory> =
 pub static PAGES_BY_PATH: LazyLock<HashMap<String, String>> =
     LazyLock::new(|| compute_pages("./src/pages/lua"));
 
-pub static PAGE_TITLE_BY_PATH: LazyLock<HashMap<&str, &str>> =
+pub static PAGE_TITLE_BY_PATH: LazyLock<HashMap<&str, &Title>> =
     LazyLock::new(|| PAGES_STRUCTURE.rec_get_page_titles());
 
 
@@ -36,6 +39,12 @@ pub async fn render(req: Request) -> Markup {
 
     let (previous_page, next_page) = PAGES_STRUCTURE.get_nearest_pages(requested_page);
 
+
+    let Ok(language) = Language::try_from(&req) else {
+        return html! { [notfound::render] };
+    };
+
+
     html! {
         header {
             h1 {
@@ -47,7 +56,7 @@ pub async fn render(req: Request) -> Markup {
             }
             .spacer {}
             h2 {
-                (PAGE_TITLE_BY_PATH.get(requested_page).as_deref().unwrap_or_else(|| &""))
+                (PAGE_TITLE_BY_PATH.get(requested_page).map(|title| title.str_by_language(&language)).unwrap_or_else(|| &""))
             }
         }
         main {
