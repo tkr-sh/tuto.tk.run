@@ -40,9 +40,13 @@ pub async fn render(req: Request) -> Markup {
     let (previous_page, next_page) = PAGES_STRUCTURE.get_nearest_pages(requested_page);
 
 
+    #[cfg(feature = "random-lang")]
+    let language = Language::English;
+    #[cfg(not(feature = "random-lang"))]
     let Ok(language) = Language::try_from(&req) else {
         return html! { [notfound::render] };
     };
+
 
 
     html! {
