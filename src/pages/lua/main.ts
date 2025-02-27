@@ -1,4 +1,5 @@
 import "htmx.org";
+import { toggleClass } from "./toggle";
 import { buildRunners } from "./runner";
 
 let isNavBarHidden = false;

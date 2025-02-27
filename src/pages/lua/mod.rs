@@ -21,7 +21,6 @@ pub static PAGES_BY_PATH: LazyLock<HashMap<String, String>> =
 pub static PAGE_TITLE_BY_PATH: LazyLock<HashMap<&str, &Title>> =
     LazyLock::new(|| PAGES_STRUCTURE.rec_get_page_titles());
 
-
 // #[cache]
 #[page(title = "TK's Lua tutorial")]
 pub async fn render(req: Request) -> Markup {
@@ -39,15 +38,12 @@ pub async fn render(req: Request) -> Markup {
 
     let (previous_page, next_page) = PAGES_STRUCTURE.get_nearest_pages(requested_page);
 
-
     #[cfg(feature = "random-lang")]
     let language = Language::English;
     #[cfg(not(feature = "random-lang"))]
     let Ok(language) = Language::try_from(&req) else {
         return html! { [notfound::render] };
     };
-
-
 
     html! {
         header {
@@ -61,6 +57,20 @@ pub async fn render(req: Request) -> Markup {
             .spacer {}
             h2 {
                 (PAGE_TITLE_BY_PATH.get(requested_page).map(|title| title.str_by_language(&language)).unwrap_or_else(|| &""))
+            }
+            #flags {
+                button onclick="toggleClass('flags', 'visible')" {
+                    img src="/lang.svg";
+                }
+                ul {
+                    @for lang in ["en", "es", "pt", "fr", "de"] {
+                        li {
+                            a href=(format!("https://{lang}.tuto.tk.run/lua/{requested_page}")) {
+                                img src=(format!("/flag/{lang}.svg"));
+                            }
+                        }
+                    }
+                }
             }
         }
         main {
