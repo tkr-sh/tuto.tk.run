@@ -24,7 +24,7 @@
     display: flex;
     gap: 4px;
 
-    button {
+    > a, > button {
       display: flex;
       font-size: 16px;
 
