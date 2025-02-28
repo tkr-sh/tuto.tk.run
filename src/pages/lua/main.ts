@@ -54,6 +54,7 @@ const recCheckNewPage = (notClass: string, tries: number) => {
 
 const onNewPage = () => {
     hlCurrentPage();
+    toggleTechnical();
     buildRunners();
     $('main').forEach(main => main.scrollTop = 0);
     setTimeout(() => {

@@ -16,7 +16,7 @@ use {
 pub static PAGES_STRUCTURE: LazyLock<PageOrDirectory> =
     LazyLock::new(|| ron::from_str(&include_str!("./structure.ron")).unwrap());
 
-pub static PAGES_BY_PATH: LazyLock<HashMap<String, String>> =
+pub static PAGES_BY_PATH: LazyLock<HashMap<(String, Language), String>> =
     LazyLock::new(|| compute_pages("./src/pages/lua"));
 
 pub static PAGE_TITLE_BY_PATH: LazyLock<HashMap<&str, &Title>> =
@@ -33,18 +33,19 @@ pub async fn render(req: Request) -> Markup {
         .next()
         .unwrap_or("introduction");
 
-    let Some(result) = PAGES_BY_PATH.get(requested_page) else {
-        return html! { [notfound::render] };
-    };
-
-    let (previous_page, next_page) = PAGES_STRUCTURE.get_nearest_pages(requested_page);
-
     #[cfg(feature = "random-lang")]
-    let language = Language::English;
+    let language = Language::French;
     #[cfg(not(feature = "random-lang"))]
     let Ok(language) = Language::try_from(&req) else {
         return html! { [notfound::render] };
     };
+
+
+    let Some(result) = PAGES_BY_PATH.get(&(requested_page.to_owned(), language)) else {
+        return html! { [notfound::render] };
+    };
+
+    let (previous_page, next_page) = PAGES_STRUCTURE.get_nearest_pages(requested_page);
 
     html! {
         header {

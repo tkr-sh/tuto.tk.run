@@ -171,7 +171,7 @@ fn search_file_recursively<P: AsRef<std::path::Path>>(
 /// Since this code will only be called on a LazyLock, it's ok if it panics
 pub fn compute_pages<P: AsRef<std::path::Path> + std::fmt::Display>(
     path: P,
-) -> HashMap<String, String> {
+) -> HashMap<(String, Language), String> {
     let ron_content =
         std::fs::read_to_string(format!("{}/structure.ron", path.to_string())).unwrap();
     let page_structure: PageOrDirectory = ron::from_str(&ron_content).unwrap();
@@ -237,7 +237,7 @@ pub fn compute_pages<P: AsRef<std::path::Path> + std::fmt::Display>(
 
 
 
-                    ((*page).to_owned(), html_output)
+                    (((*page).to_owned(), lang), html_output)
                 })
                 .collect()
         },
