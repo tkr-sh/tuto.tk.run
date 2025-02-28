@@ -22,9 +22,11 @@ pub async fn start() {
 
     // The main router of the application is defined here
     let app = Router::new()
+        .route("/lua/", get(pages::lua::render))
         .route("/lua", get(pages::lua::render))
         .route("/lua/{*wildcard}", get(pages::lua::render))
         .layer(middleware::from_fn(layout::lua::render))
+        .route("/lua/ide", get(pages::lua::ide::render))
         .route("/", get(pages::home::render))
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))

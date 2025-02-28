@@ -67,6 +67,7 @@ const rmOutput = (c: HTMLElement) => {
         c.removeChild(c.children[c.children.length - 1])
     }
 }
+
 const addOutput = (c: HTMLElement, stdout: string) => {
     rmOutput(c);
     console.log(c);

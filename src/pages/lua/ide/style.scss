@@ -1,0 +1,76 @@
+body {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  $p: 12px;
+  width: calc(100vw - $p * 2);
+  height: calc(100vh - $p * 2);
+  background: #181818;
+  padding: $p;
+
+  > * {
+    flex-grow: 1;
+    width: 50vw;
+    border-radius: 12px;
+  }
+
+  .editor {
+    background: #282828;
+    resize: horizontal;
+    color: #fff;
+    border: none;
+  }
+
+  .wrapper-output {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+
+    header {
+      display: flex;
+      flex-direction: row-reverse;
+      $p: 12px;
+      width: calc(100% - $p * 2);
+      padding: $p;
+      gap: 10px;
+
+      button {
+        display: flex;
+        font-size: 16px;
+        border: none;
+
+        &#run::after {
+          content: ">";
+          margin-left: -10px;
+        }
+
+        &.open::after {
+          content: "🔗";
+          display: block;
+          margin-left: -16px;
+          width: 16px;
+        }
+
+        &::after {
+          opacity: 0;
+          transition: .3s;
+        }
+
+        &:hover {
+          &::after {
+            opacity: 1;
+            margin-left: 4px;
+          }
+        }
+
+      }
+    }
+
+    .output {
+      background: #282828;
+      border-radius: 12px;
+      flex-grow: 1;
+    }
+  }
+}

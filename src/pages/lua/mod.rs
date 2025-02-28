@@ -1,3 +1,4 @@
+pub mod ide;
 use {
     crate::{
         components::notfound,
