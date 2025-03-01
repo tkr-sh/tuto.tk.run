@@ -5,6 +5,7 @@
     },
     "dependencies": {
         "htmx.org": "^1.9.12",
+        "luaparse": "^0.3.1",
         "wasmoon": "^1.16.0"
     }
 }

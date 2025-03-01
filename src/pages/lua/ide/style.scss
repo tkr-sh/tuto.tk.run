@@ -14,11 +14,13 @@ body {
     border-radius: 12px;
   }
 
-  .editor {
+  #editor {
     background: #282828;
     resize: horizontal;
     color: #fff;
     border: none;
+    font-size: 20px;
+    padding: 12px;
   }
 
   .wrapper-output {
