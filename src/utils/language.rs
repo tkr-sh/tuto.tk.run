@@ -25,8 +25,13 @@ impl TryFrom<&Request> for Language {
     fn try_from(req: &Request) -> Result<Self, Self::Error> {
         use std::str::FromStr;
 
-        crate::utils::language::Language::from_str(match req.uri().authority() {
-            Some(auth) => auth.host().split(".").next().unwrap_or(""),
+        crate::utils::language::Language::from_str(match req.headers().get("host") {
+            Some(host) => {
+                host.to_str()
+                    .ok()
+                    .and_then(|str| str.split(".").next())
+                    .unwrap_or("")
+            },
             None => "",
         })
     }

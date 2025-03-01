@@ -41,8 +41,13 @@ pub fn layout(args: TokenStream, item: TokenStream) -> TokenStream {
 
             const FILES_IN_CURRENT_DIR: &str = #files_in_current_dir;
 
-            let language = crate::utils::language::Language::from_str(match req.uri().authority() {
-                Some(auth) => auth.host().split(".").next().unwrap_or(""),
+            let language = crate::utils::language::Language::from_str(match req.headers().get("host") {
+                Some(host) => {
+                    host.to_str()
+                        .ok()
+                        .and_then(|str| str.split(".").next())
+                        .unwrap_or("")
+                },
                 None => "",
             })?;
 
