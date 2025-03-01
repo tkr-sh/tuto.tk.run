@@ -1,10 +1,21 @@
-use {crate::shared::wini::err::ServerError, axum::extract::Request};
+use {
+    crate::shared::wini::err::ServerError,
+    axum::extract::Request,
+    strum_macros::{EnumIter, EnumString},
+};
 
+#[derive(Debug, EnumIter, strum::Display, Hash, PartialEq, Eq, Clone, Copy)]
 pub(crate) enum Language {
+    #[strum(to_string = "en")]
     English,
+    #[strum(to_string = "es")]
     Spanish,
+    #[strum(to_string = "pt")]
     Portugese,
+    #[strum(to_string = "fr")]
     French,
+    // #[strum(to_string = "de")]
+    #[strum(to_string = "en")]
     Deustch,
 }
 

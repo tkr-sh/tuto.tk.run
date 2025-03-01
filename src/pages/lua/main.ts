@@ -1,4 +1,5 @@
 import "htmx.org";
+import { toggleClass } from "./toggle";
 import { buildRunners } from "./runner";
 
 let isNavBarHidden = false;
@@ -53,6 +54,7 @@ const recCheckNewPage = (notClass: string, tries: number) => {
 
 const onNewPage = () => {
     hlCurrentPage();
+    toggleTechnical();
     buildRunners();
     $('main').forEach(main => main.scrollTop = 0);
     setTimeout(() => {
