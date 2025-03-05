@@ -6,6 +6,7 @@
     "dependencies": {
         "htmx.org": "^1.9.12",
         "hyperscript.org": "^0.9.14",
+        "luaparse": "^0.3.1",
         "wasmoon": "^1.16.0"
     }
 }

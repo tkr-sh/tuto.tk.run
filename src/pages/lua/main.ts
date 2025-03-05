@@ -15,7 +15,6 @@ const hlCurrentPage = () => {
     $("li").forEach(e => currentPage !== e.getAttribute("hx-replace-url")?.split("/")?.at(-1) ? e.rmClass("active") : e.addClass("active"));
 }
 
-
 const toggleTechnical = () => {
     $(".for-technical").forEach(el => {
         let currentHtml = el.innerHTML;

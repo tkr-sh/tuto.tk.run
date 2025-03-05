@@ -6,8 +6,10 @@ use {
 #[page]
 pub async fn render() -> Markup {
     html! {
-        textarea.editor {
-
+        #editor contenteditable="true" {
+            div {
+                "hey"
+            }
         }
         .wrapper-output {
             header {
