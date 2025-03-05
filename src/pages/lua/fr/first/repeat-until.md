@@ -69,7 +69,7 @@ print(1984 > 2025)
 
 ### Sortes de boucles
 
-- `repeat`/`jusqu'à ce que` : va donc répéter un code jusqu'à ce qu'une certaine condition soit remplie, et s'arrêtera une fois que cette condition est remplie
+- `repeat`/`while` : va donc répéter un code jusqu'à ce qu'une certaine condition soit remplie, et s'arrêtera une fois que cette condition est remplie
 
 <div class="runner">
 
