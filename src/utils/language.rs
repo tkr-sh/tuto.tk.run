@@ -42,7 +42,7 @@ impl std::str::FromStr for Language {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(match s {
-            "" | "tuto" | "tk" | "en" => Language::English,
+            "" | "tuto" | "tk" | "en" | "localhost:10010" => Language::English,
             "es" => Language::Spanish,
             "pt" => Language::Portugese,
             "fr" => Language::French,
