@@ -93,9 +93,9 @@ impl<'l> PageOrDirectory<'l> {
                 html! {
                     li.cursor
                         hx-get={"/htmx/" (page)}
-                        "hx-on::after-request"="onClickNewPage('')"
                         hx-target="#main"
                         hx-replace-url={"/lua/" (page)}
+                        _ = "on click liClick()"
                     { (title.str_by_language(language)) }
                 }
             },
@@ -106,9 +106,9 @@ impl<'l> PageOrDirectory<'l> {
                     @if let Some(page) = page {
                         li.cursor
                             hx-get={"/htmx/" (page)}
-                            "hx-on::after-request"="onClickNewPage('')"
                             hx-target="#main"
                             hx-replace-url={"/lua/" (page)}
+                            _ = "on click liClick()"
                         { (title.str_by_language(language)) }
                     } @else {
                         li { (title.str_by_language(language)) }

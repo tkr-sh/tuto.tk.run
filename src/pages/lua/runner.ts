@@ -59,9 +59,6 @@ const buildRunners = () => {
     });
 }
 
-buildRunners();
-
-
 const rmOutput = (c: HTMLElement) => {
     if (c.children[c.children.length - 1].classList.contains("output")) {
         c.removeChild(c.children[c.children.length - 1])

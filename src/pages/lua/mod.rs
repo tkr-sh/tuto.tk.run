@@ -59,7 +59,8 @@ pub async fn render(req: Request) -> Markup {
                 (PAGE_TITLE_BY_PATH.get(requested_page).map(|title| title.str_by_language(&language)).unwrap_or_else(|| &""))
             }
         }
-        main {
+        main _=(PreEscaped("on load init js onNewPage() end then \
+                go to top of previous <header/>")){
             #content class=(requested_page) {
                 (PreEscaped(result))
             }
@@ -67,7 +68,6 @@ pub async fn render(req: Request) -> Markup {
         footer.buttons-previous-next {
             @if let Some(previous_page) = previous_page {
                 button.previous.lua-button
-                    hx-on-click={"onClickNewPage('"(previous_page)"')"}
                     hx-get={"/htmx/" (previous_page)}
                     hx-target="#main"
                     hx-replace-url={"/lua/" (previous_page)}
@@ -80,9 +80,8 @@ pub async fn render(req: Request) -> Markup {
             @if let Some(next_page) = next_page {
                 button.next.lua-button
                     hx-get={"/htmx/" (next_page)}
-                    hx-replace-url={"/lua/" (next_page)}
                     hx-target="#main"
-                    hx-on-click={"onClickNewPage('"(next_page)"')"}
+                    hx-replace-url={"/lua/" (next_page)}
                 {
                     "Next"
                 }
