@@ -60,7 +60,7 @@ pub async fn render(req: Request) -> Markup {
                 (PAGE_TITLE_BY_PATH.get(requested_page).map(|title| title.str_by_language(&language)).unwrap_or_else(|| &""))
             }
             #flags {
-                button _="on click .visible on #flags" {
+                button _="on click toggle .visible on #flags" {
                     img src="/lang.svg";
                 }
                 ul {
