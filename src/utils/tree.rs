@@ -4,6 +4,7 @@ use {
     maud::{html, Markup, PreEscaped},
     pulldown_cmark::Options,
     std::{collections::HashMap, sync::LazyLock},
+    strum::IntoEnumIterator,
     wini_macros::page,
 };
 
@@ -93,9 +94,9 @@ impl<'l> PageOrDirectory<'l> {
                 html! {
                     li.cursor
                         hx-get={"/htmx/" (page)}
-                        "hx-on::after-request"="onClickNewPage('')"
                         hx-target="#main"
                         hx-replace-url={"/lua/" (page)}
+                        _ = "on click liClick()"
                     { (title.str_by_language(language)) }
                 }
             },
@@ -106,9 +107,9 @@ impl<'l> PageOrDirectory<'l> {
                     @if let Some(page) = page {
                         li.cursor
                             hx-get={"/htmx/" (page)}
-                            "hx-on::after-request"="onClickNewPage('')"
                             hx-target="#main"
                             hx-replace-url={"/lua/" (page)}
+                            _ = "on click liClick()"
                         { (title.str_by_language(language)) }
                     } @else {
                         li { (title.str_by_language(language)) }
@@ -170,7 +171,7 @@ fn search_file_recursively<P: AsRef<std::path::Path>>(
 /// Since this code will only be called on a LazyLock, it's ok if it panics
 pub fn compute_pages<P: AsRef<std::path::Path> + std::fmt::Display>(
     path: P,
-) -> HashMap<String, String> {
+) -> HashMap<(String, Language), String> {
     let ron_content =
         std::fs::read_to_string(format!("{}/structure.ron", path.to_string())).unwrap();
     let page_structure: PageOrDirectory = ron::from_str(&ron_content).unwrap();
@@ -178,12 +179,15 @@ pub fn compute_pages<P: AsRef<std::path::Path> + std::fmt::Display>(
     match page_structure.rec_get_pages() {
         VecOrStr::Vec(v) => {
             v.iter()
-                .map(|page| {
+                .flat_map(|page| Language::iter().map(|lang| (*page, lang)))
+                .map(|(page, lang)| {
                     println!("{}&  {}", path.to_string(), page);
-                    let file_content =
-                        search_file_recursively(path.as_ref(), &format!("{page}.md"))
-                            .unwrap()
-                            .unwrap();
+                    let file_content = search_file_recursively(
+                        path.as_ref().join(lang.to_string()),
+                        &format!("{page}.md"),
+                    )
+                    .unwrap()
+                    .unwrap();
 
                     let parser = pulldown_cmark::Parser::new_ext(&file_content, Options::all());
                     let mut html_output = String::new();
@@ -233,7 +237,7 @@ pub fn compute_pages<P: AsRef<std::path::Path> + std::fmt::Display>(
 
 
 
-                    ((*page).to_owned(), html_output)
+                    (((*page).to_owned(), lang), html_output)
                 })
                 .collect()
         },
