@@ -14,10 +14,11 @@
 
 [dependencies]
   axum = { version = "0.8", features = ["macros"] }
-  cached = { version = "0.54", features = ["async_tokio_rt_multi_thread"] }
-  colog = "1.3"
-  ctor = "0.3"
+  cached = { version = "0.56", features = ["async_tokio_rt_multi_thread"] }
+  colog = "1.4"
+  ctor = "0.5"
   datastar = { version = "0.3.1", features = ["axum"] }
+  derive_builder = "0.20"
   dotenvy = "0.15"
   http-body-util = "0.1"
   hyper = "1"
@@ -29,15 +30,16 @@
   serde = { version = "1", features = ["derive"] }
   serde_json = "1.0"
   strum = { version = "0.27", features = ["derive"] }
-  strum_macros = "0.27"
   syntect = { version = "5.2.0", default-features = false, features = ["default-fancy"] }
   tl = "0.7.8"
   tokio = { version = "1", features = ["fs", "macros", "rt-multi-thread"] }
-  toml = "0.8"
+  toml = "0.9"
+  tower = "0.5"
   tower-http = { version = "0.6", features = ["compression-br", "compression-gzip", "fs"] }
   walkdir = "2.5"
   wini-macros = { path = "./macros/" }
-  wini-maud = { version = "0.26.5", features = ["axum"] }
+  wini-maud = { version = "0.26.8", features = ["axum"] }
+
 
   [package.metadata.cargo-machete]
     ignored = [
@@ -74,7 +76,9 @@
   if_not_else = "warn"
   ignored_unit_patterns = "warn"
   impl_trait_in_params = "warn"
+  implicit_clone = "warn"
   index_refutable_slice = "warn"
+  indexing_slicing = "warn"
   inefficient_to_string = "warn"
   iter_filter_is_ok = "warn"
   iter_filter_is_some = "warn"
@@ -83,7 +87,6 @@
   iter_with_drain = "warn"
   large_digit_groups = "warn"
   manual_assert = "warn"
-  match_on_vec_items = "warn"
   match_same_arms = "warn"
   match_wildcard_for_single_variants = "warn"
   mismatching_type_param_order = "warn"
@@ -110,7 +113,6 @@
   single_char_pattern = "warn"
   str_split_at_newline = "warn"
   string_lit_chars_any = "warn"
-  string_to_string = "warn"
   trait_duplication_in_bounds = "warn"
   type_repetition_in_bounds = "warn"
   undocumented_unsafe_blocks = "warn"

@@ -1,7 +1,7 @@
 use {
-    crate::shared::wini::err::ServerError,
+    crate::shared::wini::err::{ServerError, ServerErrorKind},
     axum::extract::Request,
-    strum_macros::{EnumIter, EnumString},
+    strum::{EnumIter, EnumString},
 };
 
 #[derive(Debug, EnumIter, strum::Display, Hash, PartialEq, Eq, Clone, Copy)]
@@ -47,7 +47,9 @@ impl std::str::FromStr for Language {
             "pt" => Language::Portugese,
             "fr" => Language::French,
             "de" => Language::Deustch,
-            _ => return Err(ServerError::DebugedError(String::from("Unknown language."))),
+            _ => {
+                return Err(ServerErrorKind::DebugedError(String::from("Unknown language.")).into())
+            },
         })
     }
 }

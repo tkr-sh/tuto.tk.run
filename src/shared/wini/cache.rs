@@ -2,7 +2,7 @@ use {
     super::err::ServerResult,
     crate::utils::wini::cache::add_cache,
     axum::response::Response,
-    strum_macros::{EnumIter, EnumString},
+    strum::{EnumIter, EnumString},
 };
 
 /// Different cache categories used in the application

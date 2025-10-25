@@ -1,6 +1,6 @@
 use {
     serde::Deserialize,
-    strum_macros::{EnumIter, EnumString},
+    strum::{EnumIter, EnumString},
 };
 
 

@@ -1,8 +1,9 @@
 use {
     crate::{
-        layout,
+        layouts,
+        layouts::header,
         pages,
-        shared::wini::PORT,
+        shared::wini::{layer::MetaLayerBuilder, PORT},
         template,
         utils::wini::{
             cache,
@@ -11,29 +12,35 @@ use {
     },
     axum::{middleware, routing::get, Router},
     log::info,
+    std::collections::HashMap,
     tower_http::compression::CompressionLayer,
 };
 
 
 pub async fn start() {
-    // Support for compression
-    let comression_layer = CompressionLayer::new();
-
-
     // The main router of the application is defined here
     let app = Router::new()
         .route("/lua", get(pages::lua::render))
         .route("/lua/{*wildcard}", get(pages::lua::render))
-        .layer(middleware::from_fn(layout::lua::render))
+        .layer(middleware::from_fn(layouts::lua::render))
         // The editor has its own full-screen layout, so it is registered after
         // the `lua` layout middleware to bypass the tutorial sidebar.
         .route("/lua/editor", get(pages::lua::editor::render))
         .route("/", get(pages::home::render))
+        .layer(
+            MetaLayerBuilder::default()
+                .default_meta(HashMap::from_iter([
+                    ("title", "tk's tutorial".into()),
+                    ("description", "Websites of tutorials by tk".into()),
+                ]))
+                .build()
+                .expect("Failed to build MetaLayer"),
+        )
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))
         .route("/{*wildcard}", get(handling_file::handle_file))
         .route("/htmx/{*wildcard}", get(pages::lua::render))
-        .layer(comression_layer);
+        .layer(CompressionLayer::new());
 
 
     // Start the server
