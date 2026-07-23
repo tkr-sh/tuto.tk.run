@@ -1,4 +1,4 @@
-use maud::{DOCTYPE, Markup, PreEscaped};
+use maud::{Markup, PreEscaped, DOCTYPE};
 
 pub fn html(
     s: &str,
@@ -21,7 +21,11 @@ pub fn html(
                 link rel="icon" href="/favicon.ico" sizes="any";
                 link rel="icon" href="/favicon.svg" type="image/svg+xml";
                 link rel="stylesheet" href="/main.css";
+                script type="module" src="/datastar.js" defer {}
                 script src="/helpers.min.js" defer {}
+                style {
+                    (include_str!("./always_loaded.css"))
+                }
                 @for script in scripts_files {
                     script src=(script) defer {}
                 }

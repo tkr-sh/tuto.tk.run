@@ -96,7 +96,7 @@ impl<'l> PageOrDirectory<'l> {
                         hx-get={"/htmx/" (page)}
                         hx-target="#main"
                         hx-replace-url={"/lua/" (page)}
-                        _ = "on click liClick()"
+                        data-on:click = "if (window.innerWidth < 1200) { $barHidden = true }"
                     { (title.str_by_language(language)) }
                 }
             },
@@ -109,7 +109,7 @@ impl<'l> PageOrDirectory<'l> {
                             hx-get={"/htmx/" (page)}
                             hx-target="#main"
                             hx-replace-url={"/lua/" (page)}
-                            _ = "on click liClick()"
+                            data-on:click = "if (window.innerWidth < 1200) { $barHidden = true }"
                         { (title.str_by_language(language)) }
                     } @else {
                         li { (title.str_by_language(language)) }

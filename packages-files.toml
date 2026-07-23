@@ -17,4 +17,3 @@
 # ```
 "htmx.org" = "./dist/htmx.min.js"
 "wasmoon" = "./dist/index.js"
-"hyperscript.org" = "./dist/_hyperscript.min.js"

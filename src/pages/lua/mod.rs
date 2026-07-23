@@ -61,14 +61,14 @@ pub async fn render(req: Request) -> Markup {
             h2 {
                 (PAGE_TITLE_BY_PATH.get(requested_page).map(|title| title.str_by_language(&language)).unwrap_or_else(|| &""))
             }
-            #flags {
-                button _="on click toggle .visible on #flags" {
+            #flags data-class:visible="$showFlags" {
+                button data-on:click="$showFlags = !$showFlags" {
                     img src="/lang.svg";
                 }
                 ul {
                     @for lang in ["en", "es", "pt", "fr", "de"] {
                         li {
-                            a href=(format!("https://{lang}.tuto.tk.run/lua/{requested_page}")) {
+                            a href=(format!("https://tuto.tk.run/{lang}/lua/{requested_page}")) {
                                 img src=(format!("/flag/{lang}.svg"));
                             }
                         }
@@ -76,8 +76,8 @@ pub async fn render(req: Request) -> Markup {
                 }
             }
         }
-        main _=(PreEscaped("on load init js onNewPage() end then \
-                go to top of previous <header/>")){
+        // <!-- main data-init="onNewPage()" { -->
+        main {
             #content class=(requested_page) {
                 (PreEscaped(result))
             }

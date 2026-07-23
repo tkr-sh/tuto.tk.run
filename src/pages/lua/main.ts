@@ -1,5 +1,4 @@
 import "htmx.org";
-import "hyperscript.org";
 import { buildRunners } from "./runner";
 
 const onNewPage = () => {

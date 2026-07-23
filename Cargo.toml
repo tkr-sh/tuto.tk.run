@@ -13,6 +13,7 @@
   walkdir = "2.5.0"
 
 [dependencies]
+  async-stream = "0.3.6"
   axum = { version = "0.8", features = ["macros"] }
   cached = { version = "0.56", features = ["async_tokio_rt_multi_thread"] }
   colog = "1.4"
@@ -20,6 +21,8 @@
   datastar = { version = "0.3.1", features = ["axum"] }
   derive_builder = "0.20"
   dotenvy = "0.15"
+  flate2 = "1.1.9"
+  futures = "0.3.33"
   http-body-util = "0.1"
   hyper = "1"
   itertools = "0.14"

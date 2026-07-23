@@ -25,11 +25,10 @@ pub async fn render() -> Markup {
                 .spacer {}
                 #editor-actions {
                     button #share.lua-button.ghost
-                        _="on click \
-                            writeText(window.location.href) on navigator.clipboard \
-                            then put 'Copied!' into me \
-                            then wait 1.5s \
-                            then put 'Share' into me" {
+                        data-on:click="navigator.clipboard.writeText(window.location.href); $copied = true"
+                        "data-on:click__delay.2s"="$copied = false"
+                        data-text="$copied ? 'Copied!' : 'Share'"
+                    {
                         "Share"
                     }
                     button #run.lua-button {
