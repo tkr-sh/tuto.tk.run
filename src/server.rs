@@ -25,6 +25,9 @@ pub async fn start() {
         .route("/lua", get(pages::lua::render))
         .route("/lua/{*wildcard}", get(pages::lua::render))
         .layer(middleware::from_fn(layout::lua::render))
+        // The editor has its own full-screen layout, so it is registered after
+        // the `lua` layout middleware to bypass the tutorial sidebar.
+        .route("/lua/editor", get(pages::lua::editor::render))
         .route("/", get(pages::home::render))
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))

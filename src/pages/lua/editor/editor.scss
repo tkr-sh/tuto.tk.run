@@ -1,0 +1,327 @@
+$bg: #131316;
+$surface: #1d1d21;
+$surface-2: #2a2a31;
+$divider: rgba(255, 255, 255, 0.07);
+$accent: #4466f8;
+$accent-light: #88aaff;
+$text: #e6e6e6;
+$muted: #9a9aa6;
+$radius: 12px;
+
+$mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", "Fira Code",
+  Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+
+// Syntax colors from the tutorial's syntect theme (base16-eighties.dark).
+$code-text: #d3d0c8;
+$code-comment: #747369;
+$code-string: #99cc99;
+$code-number: #f99157;
+$code-keyword: #cc99cc;
+$code-function: #66cccc;
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: $bg;
+  color: $text;
+}
+
+#editor {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 12px;
+  gap: 12px;
+}
+
+/* --- Header / toolbar --- */
+#editor-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: $surface;
+  border-radius: $radius;
+  flex-shrink: 0;
+
+  #editor-logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: $text;
+    text-decoration: none;
+
+    #lua-title {
+      color: $accent-light;
+    }
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  #editor-actions {
+    display: flex;
+    gap: 8px;
+
+    .lua-button {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+
+      &.ghost {
+        background: $surface-2;
+
+        &:hover {
+          background: #34343d;
+        }
+      }
+    }
+
+    #run::after {
+      content: "\25B6";
+      font-size: 11px;
+      margin-left: 8px;
+    }
+  }
+}
+
+/* --- Body : the two panes + gutter --- */
+#editor-body {
+  display: flex;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  min-height: 0;
+  background: $surface;
+  border-radius: $radius;
+  overflow: hidden;
+
+  &#pane-code {
+    flex: 1 1 50%;
+  }
+
+  &#pane-output {
+    flex: 1 1 50%;
+  }
+
+  .pane-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    border-bottom: 1px solid $divider;
+    flex-shrink: 0;
+
+    .pane-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: $accent-light;
+    }
+
+    .ghost {
+      background: transparent;
+      color: $muted;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 3px 12px;
+      border-radius: 6px;
+      transition: 0.2s;
+
+      &:hover {
+        background: $surface-2;
+        color: $text;
+      }
+    }
+  }
+
+  .pane-content {
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+/* --- Code editor : transparent textarea over a highlighted <pre> --- */
+.editor-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* Both layers must share identical geometry to stay aligned. */
+#code,
+#highlight {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  box-sizing: border-box;
+  font-family: $mono;
+  font-size: 15px;
+  line-height: 1.6;
+  tab-size: 2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow: auto;
+}
+
+#highlight {
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: $code-text;
+
+  .tok-comment {
+    color: $code-comment;
+  }
+  .tok-string {
+    color: $code-string;
+  }
+  .tok-number,
+  .tok-constant {
+    color: $code-number;
+  }
+  .tok-keyword {
+    color: $code-keyword;
+  }
+  .tok-builtin {
+    color: $code-function;
+  }
+}
+
+/* Override the global `* { font-family: Poppins }` for code/output content. */
+#highlight *,
+#output * {
+  font-family: inherit;
+}
+
+#code {
+  z-index: 1;
+  resize: none;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: $text;
+}
+
+/* --- Resize gutter : the dark page shows through the gap --- */
+.gutter {
+  flex: 0 0 12px;
+  align-self: stretch;
+  cursor: col-resize;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 40px;
+    border-radius: 2px;
+    background: $surface-2;
+    transition: background 0.2s, height 0.2s;
+  }
+
+  &:hover::after,
+  &.dragging::after {
+    background: $accent;
+    height: 64px;
+  }
+}
+
+/* --- Output : seamless on the card surface --- */
+#output {
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 16px;
+  font-family: $mono;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  .placeholder {
+    color: $muted;
+    font-style: italic;
+  }
+
+  .line {
+    color: $text;
+  }
+
+  .err {
+    color: #ff6b6b;
+  }
+
+  .meta {
+    color: $muted;
+    font-style: italic;
+  }
+}
+
+/* --- Status bar --- */
+#editor-statusbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: $surface;
+  border-radius: $radius;
+  font-size: 13px;
+  color: $muted;
+  flex-shrink: 0;
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  #status.running {
+    color: $accent-light;
+  }
+
+  #status.error {
+    color: #ff6b6b;
+  }
+}
+
+/* --- Responsive : stack vertically on small screens --- */
+@media (max-width: 800px) {
+  #editor-body {
+    flex-direction: column;
+  }
+
+  .gutter {
+    flex: 0 0 12px;
+    cursor: row-resize;
+    width: 100%;
+
+    &::after {
+      width: 40px;
+      height: 2px;
+    }
+
+    &:hover::after,
+    &.dragging::after {
+      width: 64px;
+      height: 2px;
+    }
+  }
+
+  .pane#pane-code,
+  .pane#pane-output {
+    flex: 1 1 50%;
+    width: 100%;
+  }
+}

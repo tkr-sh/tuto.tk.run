@@ -1,10 +1,7 @@
-import wasmoon from "wasmoon";
-
-const factory = new wasmoon.LuaFactory()
+import { runLua } from "./run-lua";
 
 const buildRunners = () => {
     $(".runner").forEach(runner => {
-        console.log(runner);
         let span = $new("header", {}, "Lua runner");
         let openInEditor = $new("a", {className: "open lua-button", href: "/lua/editor"}, null);
         openInEditor.textContent = "Open in editor";
@@ -24,44 +21,22 @@ const buildRunners = () => {
 
         const runBtn = runner.$(".run")[0];
 
-
         runBtn.on("click", async () => {
             rmOutput(runner);
             let s = "";
-            const lua = await factory.createEngine();
 
-            try {
-                lua.global.set('read', () => {
-                    let input = prompt("Input:");
-                    s += input  + "\n";
-                    return input
-                });
-
-                let io = lua.global.get("io");
-                io.read = () => {
-                    let input = prompt("Input:");
-                    s += input  + "\n";
-                    return input
-                }
-
-                lua.global.set("io", io);
-
-                lua.global.set('random',  lua.global.get('math').random);
-
-                lua.global.set('print', (...args: any[]) => {
-                    s += args.join("\t") + "\n";
-                    alert(args.join("\t"));
+            await runLua(runner.$("pre")[0].text(), {
+                onPrint: line => {
+                    s += line + "\n";
                     addOutput(runner, s);
-                });
-
-                await lua.doString(runner.$("pre")[0].text());
-
-                addOutput(runner, s);
-            } catch (e) {
-                addOutput(runner, s + "\n" + e);
-            } finally {
-                lua.global.close()
-            }
+                },
+                onInput: line => {
+                    s += line + "\n";
+                },
+                onError: err => {
+                    addOutput(runner, s + "\n" + err);
+                },
+            });
         });
     });
 }
@@ -73,7 +48,6 @@ const rmOutput = (c: HTMLElement) => {
 }
 const addOutput = (c: HTMLElement, stdout: string) => {
     rmOutput(c);
-    console.log(c);
 
     const newOutput = $new(
         "div",
@@ -81,6 +55,5 @@ const addOutput = (c: HTMLElement, stdout: string) => {
         "",
         stdout.split("\n").map(e => $new("div", {}, e))
     );
-    console.log(newOutput);
     c.add(newOutput)
 }

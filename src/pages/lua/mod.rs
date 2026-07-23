@@ -12,6 +12,8 @@ use {
     wini_macros::{cache, page},
 };
 
+pub mod editor;
+
 pub static PAGES_STRUCTURE: LazyLock<PageOrDirectory> =
     LazyLock::new(|| ron::from_str(&include_str!("./structure.ron")).unwrap());
 
