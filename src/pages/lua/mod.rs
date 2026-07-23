@@ -4,11 +4,18 @@ use {
         utils::{
             language::Language,
             tree::{compute_pages, PageOrDirectory, Title},
+            wini::buffer::buffer_to_string,
         },
     },
-    axum::extract::Request,
+    async_stream::stream,
+    axum::{
+        extract::Request,
+        response::{IntoResponse, Response, Sse},
+    },
+    datastar::{consts::ElementPatchMode, prelude::PatchElements},
+    itertools::Itertools,
     maud::{html, Markup, PreEscaped},
-    std::{collections::HashMap, sync::LazyLock},
+    std::{collections::HashMap, convert::Infallible, sync::LazyLock},
     wini_macros::page,
 };
 
@@ -76,8 +83,9 @@ pub async fn render(req: Request) -> Markup {
                 }
             }
         }
-        // <!-- main data-init="onNewPage()" { -->
-        main {
+        main
+            data-init="const f = () => {if (typeof onNewPage !== 'undefined') { onNewPage() } else {setTimeout(f, 10)} }; f()"
+        {
             #content class=(requested_page) {
                 (PreEscaped(result))
             }
@@ -85,9 +93,7 @@ pub async fn render(req: Request) -> Markup {
         footer.buttons-previous-next {
             @if let Some(previous_page) = previous_page {
                 button.previous.lua-button
-                    hx-get={"/htmx/" (previous_page)}
-                    hx-target="#main"
-                    hx-replace-url={"/lua/" (previous_page)}
+                    data-on:click={"@get('/ds/lua/"(previous_page)"')"}
                 {
                     "Previous"
                 }
@@ -96,9 +102,7 @@ pub async fn render(req: Request) -> Markup {
             }
             @if let Some(next_page) = next_page {
                 button.next.lua-button
-                    hx-get={"/htmx/" (next_page)}
-                    hx-target="#main"
-                    hx-replace-url={"/lua/" (next_page)}
+                    data-on:click={"@get('/ds/lua/"(next_page)"')"}
                 {
                     "Next"
                 }
@@ -107,4 +111,44 @@ pub async fn render(req: Request) -> Markup {
             }
         }
     }
+}
+
+
+pub async fn datastar(req: Request) -> Response {
+    let uri_without_ds = {
+        let mut uri = req.uri().path().split('/').skip(1).join("/");
+        uri.insert(0, '/');
+        uri
+    };
+
+    let resp = render(req).await;
+
+    Sse::new(stream! {
+        // Body
+        let patch = PatchElements::new(buffer_to_string(resp).await.unwrap_or_default())
+            .selector("#main")
+            .mode(ElementPatchMode::Inner);
+        yield Ok::<_, Infallible>(patch.write_as_axum_sse_event());
+
+        let json_uri =
+            serde_json::to_string(&uri_without_ds).unwrap_or_else(|_| "\"/\"".to_owned());
+        let patch = PatchElements::new(format!(
+            "<script>window.history.pushState({{urlPath:{json_uri}}},\"\",{json_uri});</script>"
+        ))
+        .selector("head")
+        .mode(ElementPatchMode::Append);
+        yield Ok(patch.write_as_axum_sse_event());
+
+        let patch = PatchElements::new(r"<script>f = (n) => {if (typeof onNewPage !== 'undefined' || n > 1000) { onNewPage() } else {setTimeout(() => f(n+1), 10)} };f(0)</script>")
+            .selector("head")
+        .mode(ElementPatchMode::Append);
+        yield Ok(patch.write_as_axum_sse_event());
+
+        let patch = PatchElements::new("<script>document.getElementById('main').scrollTo(0,0)</script>").selector("head")
+            .mode(ElementPatchMode::Append);
+        yield Ok(patch.write_as_axum_sse_event());
+
+
+    })
+    .into_response()
 }

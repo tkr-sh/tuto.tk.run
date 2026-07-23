@@ -1,1 +1,1 @@
-mod datastar;
+pub mod datastar;

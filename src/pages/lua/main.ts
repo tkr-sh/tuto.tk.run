@@ -1,4 +1,3 @@
-import "htmx.org";
 import { buildRunners } from "./runner";
 
 const onNewPage = () => {

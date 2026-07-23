@@ -93,10 +93,7 @@ impl<'l> PageOrDirectory<'l> {
             PageOrDirectory::Page { title, page } => {
                 html! {
                     li.cursor
-                        hx-get={"/htmx/" (page)}
-                        hx-target="#main"
-                        hx-replace-url={"/lua/" (page)}
-                        data-on:click = "if (window.innerWidth < 1200) { $barHidden = true }"
+                        data-on:click = {"@get('/ds/lua/"(page)"'); if (window.innerWidth < 1200) { $barHidden = true }"}
                     { (title.str_by_language(language)) }
                 }
             },
@@ -106,10 +103,7 @@ impl<'l> PageOrDirectory<'l> {
                 html! {
                     @if let Some(page) = page {
                         li.cursor
-                            hx-get={"/htmx/" (page)}
-                            hx-target="#main"
-                            hx-replace-url={"/lua/" (page)}
-                            data-on:click = "if (window.innerWidth < 1200) { $barHidden = true }"
+                            data-on:click = {"@get('/ds/lua/"(page)"'); if (window.innerWidth < 1200) { $barHidden = true }"}
                         { (title.str_by_language(language)) }
                     } @else {
                         li { (title.str_by_language(language)) }

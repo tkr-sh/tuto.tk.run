@@ -52,31 +52,7 @@ pub async fn template(req: Request, next: Next) -> ServerResult<Response> {
 
 
 
-    let (scripts, styles) = match res_parts.extensions.get::<Files>() {
-        Some(files) => {
-            // Convert the string separated by ; into a vec
-            let mut scripts = vec![];
-            let mut styles = vec![];
-
-            for file in files {
-                if !file.is_empty() {
-                    let formatted_file = format!("/{file}");
-                    if file.ends_with("css") {
-                        styles.push(formatted_file);
-                    } else if file.ends_with("js") {
-                        scripts.push(formatted_file);
-                    }
-                }
-            }
-
-            let css_included_from_dependencies = order_scripts_by_dependent(&mut scripts);
-
-            styles.extend(css_included_from_dependencies);
-
-            (scripts, styles)
-        },
-        None => (Vec::new(), Vec::new()),
-    };
+    let (scripts, styles) = collect_assets(res_parts.extensions.get::<Files>());
 
     // Compute the HTML to send
     let html = html::html(&resp_str, scripts, styles, &meta_tags);
@@ -93,7 +69,35 @@ pub async fn template(req: Request, next: Next) -> ServerResult<Response> {
 }
 
 
-fn order_scripts_by_dependent(scripts: &mut Vec<String>) -> HashSet<String> {
+/// Extract linked CSS/JS files from response extensions and resolve dependencies.
+///
+/// Returns `(scripts, styles)` ready for inclusion in `<head>`.
+pub(crate) fn collect_assets(files: Option<&Files>) -> (Vec<String>, Vec<String>) {
+    let Some(files) = files else {
+        return (Vec::new(), Vec::new());
+    };
+
+    let mut scripts = vec![];
+    let mut styles = vec![];
+
+    for file in files {
+        if !file.is_empty() {
+            let formatted_file = format!("/{file}");
+            if file.ends_with("css") {
+                styles.push(formatted_file);
+            } else if file.ends_with("js") {
+                scripts.push(formatted_file);
+            }
+        }
+    }
+
+    let css_included_from_dependencies = order_scripts_by_dependent(&mut scripts);
+    styles.extend(css_included_from_dependencies);
+
+    (scripts, styles)
+}
+
+pub(crate) fn order_scripts_by_dependent(scripts: &mut Vec<String>) -> HashSet<String> {
     // The css that is linked to a javascript package, and that therefore, should also be included
     let mut css_included_from_dependencies: HashSet<String> = HashSet::new();
     let mut packages = Vec::<String>::new();

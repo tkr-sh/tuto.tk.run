@@ -1,7 +1,7 @@
 use {
     crate::{
-        layouts,
-        layouts::header,
+        layouts::{self, header},
+        middlewares,
         pages,
         shared::wini::{layer::MetaLayerBuilder, PORT},
         template,
@@ -18,15 +18,25 @@ use {
 
 
 pub async fn start() {
-    // The main router of the application is defined here
-    let app = Router::new()
+    // let api_router = Router::new().route("/lua/page", method_router);
+
+    let page_router = Router::new()
         .route("/lua", get(pages::lua::render))
         .route("/lua/{*wildcard}", get(pages::lua::render))
         .layer(middleware::from_fn(layouts::lua::render))
         // The editor has its own full-screen layout, so it is registered after
         // the `lua` layout middleware to bypass the tutorial sidebar.
         .route("/lua/editor", get(pages::lua::editor::render))
-        .route("/", get(pages::home::render))
+        .route("/", get(pages::home::render));
+
+    let datastar_router = Router::new()
+        .layer(middleware::from_fn(middlewares::datastar::replace))
+        .route("/lua", get(pages::lua::datastar))
+        .route("/lua/{*wildcard}", get(pages::lua::datastar))
+        .layer(middleware::from_fn(middlewares::datastar::compress_sse))
+        .layer(CompressionLayer::new());
+
+    let app = page_router
         .layer(
             MetaLayerBuilder::default()
                 .default_meta(HashMap::from_iter([
@@ -38,8 +48,8 @@ pub async fn start() {
         )
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))
+        .nest("/ds", datastar_router)
         .route("/{*wildcard}", get(handling_file::handle_file))
-        .route("/htmx/{*wildcard}", get(pages::lua::render))
         .layer(CompressionLayer::new());
 
 

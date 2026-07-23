@@ -29,6 +29,6 @@ Like... all of this is not impossible to teach. But it's just some more stuff th
 
 ## Javascript
 
-- Javascript dude
+- Javascript
 
 </div>

@@ -30,7 +30,7 @@ pub fn html(
                     script src=(script) defer {}
                 }
             }
-            body {
+            body data-on:pushstate__window="console.log('hey')" {
                 (PreEscaped(s))
             }
         }

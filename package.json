@@ -4,7 +4,6 @@
         "@types/node": "^22.9.3"
     },
     "dependencies": {
-        "htmx.org": "^1.9.12",
         "wasmoon": "^1.16.0"
     }
 }

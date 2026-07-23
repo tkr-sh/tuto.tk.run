@@ -53,3 +53,30 @@ var post = (url, data) => api('POST', url, data);
 var put = (url, data) => api('PUT', url, data);
 var patch = (url, data) => api('PATCH', url, data);
 var del = (url) => api('DELETE', url);
+
+var _scrollPositions = {};
+var _scrollSelectors = ['#main'];
+var _saveScroll = () => {
+    var entries = [];
+    for (var sel of _scrollSelectors) {
+        var el = document.querySelector(sel);
+        if (el) entries.push({selector: sel, scrollTop: el.scrollTop});
+    }
+    if (entries.length) _scrollPositions[location.pathname] = entries;
+};
+var _restoreOrResetScroll = () => {
+    var saved = _scrollPositions[location.pathname];
+    if (saved) {
+        for (var entry of saved) {
+            var el = document.querySelector(entry.selector);
+            if (el) {
+                // This is to wait for putting the HTML fragment in the DOM
+                setTimeout(() => el.scrollTo(0, entry.scrollTop), 10);
+            }
+        }
+    } else {
+        var mc = document.getElementById('main');
+        if (mc) mc.scrollTo(0, 0);
+    }
+};
+
