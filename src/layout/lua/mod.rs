@@ -2,11 +2,15 @@ use {
     crate::{pages::lua::PAGES_STRUCTURE, utils::language::Language},
     axum::extract::Request,
     maud::{html, Markup, PreEscaped},
+    std::str::FromStr,
     wini_macros::layout,
 };
 
 #[layout]
-pub async fn render(child: &str, language: Language) -> Markup {
+pub async fn render(child: &str) -> Markup {
+    // TODO
+    let language = Language::English;
+
     html! {
         script type="text/hyperscript" {
             (PreEscaped("def liClick() \

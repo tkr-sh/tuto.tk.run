@@ -9,7 +9,7 @@ use {
     axum::extract::Request,
     maud::{html, Markup, PreEscaped},
     std::{collections::HashMap, sync::LazyLock},
-    wini_macros::{cache, page},
+    wini_macros::page,
 };
 
 pub mod editor;

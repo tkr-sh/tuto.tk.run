@@ -28,6 +28,7 @@
                     ripgrep
                     rust-bin.nightly.latest.default
                     just
+                    delta
                 ];
             };
 
