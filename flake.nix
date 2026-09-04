@@ -33,6 +33,11 @@
                 url = "https://registry.npmjs.org/htmx.org/-/htmx.org-1.9.12.tgz";
                 hash = "sha256-P42xkDIjwknCDhiwnRvCaHduWchRQk9SUoXQuT2CXNA=";
             };
+
+            datastarJs = pkgs.fetchurl {
+                url = "https://raw.githubusercontent.com/starfederation/datastar/73ab00e7c06d8c2bad030fdddafba800fcccbde2/bundles/datastar.js";
+                hash = "sha256-XWt3lKUKg9gtqWKuxeOC9a6DrHr7x1H5A/epxr1DPGU=";
+            };
         in
         {
             devShells.default = with pkgs; mkShell {
@@ -83,6 +88,8 @@
                         -C public/modules/wasmoon package/dist/index.js
                     tar -xzf ${htmxTarball} --strip-components=2 \
                         -C public/modules/htmx.org package/dist/htmx.min.js
+
+                    cp ${datastarJs} public/datastar.js
                 '';
 
                 # Tests expect a running environment; skip in the sandbox.
