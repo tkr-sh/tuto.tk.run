@@ -61,6 +61,19 @@ nav#sidebar {
                     content: counter(list-counter) "." counter(nested-counter) " ";
                 }
             }
+
+            > ol {
+                counter-reset: nested-nested-counter;
+                padding-left: 16px;
+
+                > li {
+                    counter-increment: nested-nested-counter;
+
+                    &::before {
+                        content: counter(list-counter) "." counter(nested-counter) "." counter(nested-nested-counter)  " ";
+                    }
+                }
+            }
         }
     }
 

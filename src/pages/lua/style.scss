@@ -118,6 +118,42 @@ pre {
   overflow: scroll;
 }
 
+blockquote {
+    border-left: 4px solid #fff3;
+    padding-left: 16px;
+    margin-left: 0px;
+    color: #fff8;
+    margin-block: 20px;
+
+}
+
+.note {
+  margin-block: 20px;
+  padding: 12px 16px;
+  border-left: 4px solid #4466FF;
+  border-radius: 0 10px 10px 0;
+  background: #4466FF1a;
+
+  &::before {
+    content: "Note";
+    display: block;
+    margin-bottom: 4px;
+    color: #8099FF;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
 
 footer.buttons-previous-next {
   max-width: 1100px;
@@ -265,5 +301,39 @@ code {
     border-left: 4px solid #975;
     padding-left: 16px;
     display: block !important;
+  }
+}
+
+table {
+  display: block; // lets wide tables scroll instead of overflowing the page
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  margin-block: 20px;
+  border-spacing: 0;
+  border-radius: 10px;
+  background: #222;
+
+  th,
+  td {
+    padding: 8px 16px;
+    text-align: left;
+  }
+
+  th {
+    background: #333;
+    font-weight: 600;
+  }
+
+  td {
+    border-top: 1px solid #fff1;
+  }
+
+  tbody tr {
+    transition: .3s;
+
+    &:hover {
+      background: #2a2a2a;
+    }
   }
 }

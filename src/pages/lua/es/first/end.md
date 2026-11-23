@@ -1,21 +1,21 @@
-Entonces, ahora solo queda imprimir el número de intentos.
+Entonces, ahora lo único que queda es mostrar el número de intentos.
 
-Anteriormente incrementamos este valor justo después de obtener los datos del usuario con
+Antes lo incrementamos justo después de obtener los datos del usuario con
 
 ```lua
 numero_de_intentos = numero_de_intentos + 1
 ```
 
-Pero ahora, queremos imprimir un mensaje de felicitación y al mismo tiempo, ¿cuántos intentos llevó?
+Pero ahora, quisiéramos mostrar un mensaje de felicitación y, al mismo tiempo, cuántos intentos hizo falta.
 
 Es hora de aprender el último operador antes del final de este primer juego:
 
-`..`: Concatena dos valores.
+`..`: Concatena 2 valores.
 
 <div class="runner">
 
 ```lua
-print("Ha pasado " .. 4 .. " años")
+print("Han pasado " .. 4 .. " años")
 ```
 
 </div>
@@ -23,10 +23,10 @@ print("Ha pasado " .. 4 .. " años")
 Con eso en mente, podemos crear un mensaje agradable:
 
 ```lua
-print("Ganaste en " .. numero_de_intentos .. " intentos!")
+print("¡Ganaste en " .. numero_de_intentos .. " intentos!")
 ```
 
-Y aquí está FINALMENTE nuestro juego:
+Y aquí está POR FIN nuestro juego:
 
 ---
 
@@ -36,43 +36,43 @@ Y aquí está FINALMENTE nuestro juego:
 numero_de_intentos = 0
 numero_a_adivinar = random(1, 100)
 
-print("Intenta adivinar el número aleatorio entre 1 y 100!")
+print("¡Intenta adivinar el número aleatorio entre 1 y 100!")
 
 repeat
-	guess_usuario = tonumber(read())
+	intento_usuario = tonumber(read())
 	numero_de_intentos = numero_de_intentos + 1
 
-	if numero_a_adivinar < guess_usuario then
-		print("El número es más bajo!")
+	if numero_a_adivinar < intento_usuario then
+		print("¡El número es más bajo!")
 	end
 
-	if numero_a_adivinar > guess_usuario then
-		print("El número es más alto!")
+	if numero_a_adivinar > intento_usuario then
+		print("¡El número es más alto!")
 	end
-until guess_usuario == numero_a_adivinar
+until intento_usuario == numero_a_adivinar
 
-print("Ganaste en " .. numero_de_intentos .. " intentos!")
+print("¡Ganaste en " .. numero_de_intentos .. " intentos!")
 ```
 
 </div>
 
 ---
 
-## ¡WOW!.
+## ¡WOW!
 
-¡Wow! ¿No es así?
+¡Wow! ¿A que sí?
 
-Estás listo para convertirte en programador ahora :) !
+¡Ya estás listo para convertirte en programador! :) 
 
 ## ¿Se acabó?
 
 Sí y no.
 
-Lamentablemente, simplifiqué una cosa: usualmente no puedes ejecutar `read` y `random` de esa manera. Lua gusta de poner las funciones "integradas" en algunas categorías: `math` (para funciones matemáticas), `io` (para interacciones de entrada/salida), `os` (para interactuar con tu sistema operativo), ...
+Lamentablemente, simplifiqué una cosa: normalmente no puedes ejecutar `read` y `random` de esa manera. A Lua le gusta agrupar las funciones «integradas» en algunas categorías: `math` (para las funciones matemáticas), `io` (para las interacciones de entrada/salida), `os` (para interactuar con tu sistema operativo), ...
 
-Y por lo tanto, cuando quieras utilizar funciones específicas que son parte de una categoría, debes llamarlas como `categoria.la_funcion()`
+Y por lo tanto, cuando quieras utilizar funciones específicas que forman parte de una categoría, debes llamarlas como `categoria.la_funcion()`
 
-En nuestro caso, `random` es parte de la categoría `math`, y `read` es parte de la categoría `io`. `print` y `tonumber` son globales, por lo que no necesitas especificar nada
+En nuestro caso, `random` forma parte de la categoría `math`, y `read` forma parte de la categoría `io`. `print` y `tonumber` son globales, así que no necesitas especificar nada.
 
 <div class="runner">
 
@@ -80,26 +80,26 @@ En nuestro caso, `random` es parte de la categoría `math`, y `read` es parte de
 numero_de_intentos = 0
 numero_a_adivinar = math.random(1, 100)
 
-print("Intenta adivinar el número aleatorio entre 1 y 100!")
+print("¡Intenta adivinar el número aleatorio entre 1 y 100!")
 
 repeat
-	guess_usuario = tonumber(io.read())
+	intento_usuario = tonumber(io.read())
 	numero_de_intentos = numero_de_intentos + 1
 
-	if numero_a_adivinar < guess_usuario then
-		print("El número es más bajo!")
+	if numero_a_adivinar < intento_usuario then
+		print("¡El número es más bajo!")
 	end
 
-	if numero_a_adivinar > guess_usuario then
-		print("El número es más alto!")
+	if numero_a_adivinar > intento_usuario then
+		print("¡El número es más alto!")
 	end
-until guess_usuario == numero_a_adivinar
+until intento_usuario == numero_a_adivinar
 
-print("Ganaste en " .. numero_de_intentos .. " intentos!")
+print("¡Ganaste en " .. numero_de_intentos .. " intentos!")
 ```
 
 </div>
 
-## ¡Felicidades, has terminado tu primer programa Lua! 
+## ¡Felicidades, has terminado tu primer programa Lua! 🎉
 
-Ahora que tienes la base, vamos a tratar de mejorar nuestro juego actual para agregar nuevas funcionalidades, y vamos a aprender cosas nuevas en el camino.
+Ahora que tienes las bases, vamos a intentar mejorar nuestro juego actual para añadir nuevas funcionalidades, y aprenderemos cosas nuevas por el camino.

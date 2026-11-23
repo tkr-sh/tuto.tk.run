@@ -4,12 +4,12 @@ numero_de_intentos = 0
 
 Esta es la primera línea que vemos en el programa.
 
-Normalmente, cuando quieres entender qué hace un programa, lo lees línea por línea, como si estuvieras leyendo un texto en inglés normal, así que empezamos aquí.
+Normalmente, cuando quieres entender qué hace un programa, lo lees línea por línea, como si estuvieras leyendo un texto normal, así que empezamos aquí.
 
 
 ## ¿Genial, pero qué hace esta línea?
 
-En los lenguajes de programación, a menudo tienes el concepto de una "variable". Una variable es como una caja etiquetada que contiene algunos datos. Una vez que creas una variable, puedes leer su contenido - equivalente a abrir la caja - y incluso cambiarlo (de ahí el nombre "variable") - equivalente a poner un nuevo valor en la caja.
+En los lenguajes de programación, a menudo tienes el concepto de una «variable». Una variable es como una caja etiquetada que contiene algunos datos. Una vez que creas una variable, puedes leer su contenido - equivalente a abrir la caja - e incluso cambiarlo (de ahí el nombre «variable») - equivalente a poner un nuevo valor en la caja.
 
 ### Pero ¿qué tipo de dato puede contener?
 
@@ -27,7 +27,7 @@ el_nombre_de_la_variable = el_valor
 ```
 `el_nombre_de_la_variable` puede ser cualquier cosa. Excepto `true`, `false`, `nil` (y otros que veremos más adelante)
 
-`el_valor` un tipo válido como se describe anteriormente.
+`el_valor` es un valor válido como se describe anteriormente.
 
 Aquí hay algunos ejemplos:
 ```lua
@@ -45,7 +45,7 @@ nombre_del_abuelo = "Juan"
 mi_amigo_abuelo_nombre = nombre_del_abuelo
 ```
 
-En este contexto, tanto `nombre_del_abuelo` como `mi_amigo_abuelo_nombre` serán la cadena `"Juan"`.
+En este contexto, tanto `nombre_del_abuelo` como `mi_amigo_abuelo_nombre` serán el string `Juan`.
 
 ## Volviendo a nuestra primera línea
 

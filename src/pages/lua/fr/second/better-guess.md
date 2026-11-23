@@ -1,0 +1,1 @@
+Maintenant que nous avons réalisé notre jeu de base, nous pouvons essayer de l'améliorer ! Peut-être avez-vous rencontré quelques bugs en le testant, ou peut-être avez-vous des idées pour l'améliorer ? Dans cette section, nous allons découvrir de nouveaux concepts Lua tout en améliorant notre jeu !

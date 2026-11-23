@@ -1,57 +1,57 @@
-Então, agora a única coisa que resta é imprimir o número de tentativas.
+Então, agora a única coisa que resta é exibir o número de tentativas.
 
-Anteriormente, incrementamos isso logo após obter os dados do usuário com
+Nós o incrementamos logo após obter os dados do usuário com
 
 ```lua
-número_de_tentativas = número_de_tentativas + 1
+numero_de_tentativas = numero_de_tentativas + 1
 ```
 
-Mas agora, gostaríamos de imprimir uma mensagem de congratulações e ao mesmo tempo, quantas tentativas levou?
+Mas agora, gostaríamos de exibir uma mensagem de parabéns e, ao mesmo tempo, quantas tentativas foram necessárias.
 
-É hora de aprender o último operador antes do fim desse primeiro jogo:
+É hora de aprender o último operador antes do fim deste primeiro jogo:
 
-`..`: Concatena 2 valores. 
+`..`: Concatena 2 valores.
 
 <div class="runner">
 
 ```lua
-print("Levou " .. 4 .. " anos")
+print("Já se passaram " .. 4 .. " anos")
 ```
 
 </div>
 
-Com isso em mente, podemos criar uma mensagem agradável:
+Com isso em mente, podemos criar uma mensagem legal:
 
 ```lua
-print("Você ganhou em " .. número_de_tentativas .. " tentativas!")
+print("Você ganhou em " .. numero_de_tentativas .. " tentativas!")
 ```
 
-E aqui está FINALMENTE nosso jogo:
+E aqui está FINALMENTE o nosso jogo:
 
 ---
 
 <div class="runner">
 
 ```lua
-número_de_tentativas = 0
-número_para_adivinhar = random(1, 100)
+numero_de_tentativas = 0
+numero_para_adivinhar = random(1, 100)
 
 print("Tente adivinhar o número aleatório entre 1 e 100!")
 
 repeat
-        chute_do_usuário = tonumber(read())
-        número_de_tentativas = número_de_tentativas + 1
+	chute_do_usuario = tonumber(read())
+	numero_de_tentativas = numero_de_tentativas + 1
 
-        if número_para_adivinhar < chute_do_usuário then
-                print("O número é mais baixo!")
-        end
+	if numero_para_adivinhar < chute_do_usuario then
+		print("O número é mais baixo!")
+	end
 
-        if número_para_adivinhar > chute_do_usuário then
-                print("O número é mais alto!")
-        end
-until chute_do_usuário == número_para_adivinhar
+	if numero_para_adivinhar > chute_do_usuario then
+		print("O número é mais alto!")
+	end
+until chute_do_usuario == numero_para_adivinhar
 
-print("Você ganhou em " .. número_de_tentativas .. " tentativas!")
+print("Você ganhou em " .. numero_de_tentativas .. " tentativas!")
 ```
 
 </div>
@@ -62,44 +62,44 @@ print("Você ganhou em " .. número_de_tentativas .. " tentativas!")
 
 Uau! Não é?
 
-Você está pronto para se tornar um programador agora :) !
+Você está pronto para se tornar um programador agora! :) 
 
-## É o fim ?
+## É o fim?
 
 Sim e não.
 
-Infelizmente, eu simplifiquei demais uma coisa: geralmente você não pode executar `read` e `random` assim. Lua gosta de colocar funções "embutidas" em categorias específicas: `math` (para funções matemáticas), `io` (para interações de entrada/saída), `os` (para interagir com o seu sistema operacional), ...
+Infelizmente, eu simplifiquei uma coisa: normalmente você não pode executar `read` e `random` assim. O Lua gosta de colocar as funções «integradas» em algumas categorias: `math` (para as funções matemáticas), `io` (para as interações de entrada/saída), `os` (para interagir com o seu sistema operacional), ...
 
-E, portanto, quando você quer usar funções específicas que fazem parte de uma categoria, você precisa chamá-las como `categoria.a_função()`
+E, portanto, quando você quer usar funções específicas que fazem parte de uma categoria, você precisa chamá-las como `categoria.a_funcao()`
 
-No nosso caso, `random` faz parte da categoria `math`, e `read` faz parte da categoria `io`. `print` e `tonumber` são globais, então você não precisa especificar nada
+No nosso caso, `random` faz parte da categoria `math`, e `read` faz parte da categoria `io`. `print` e `tonumber` são globais, então você não precisa especificar nada.
 
 <div class="runner">
 
 ```lua
-número_de_tentativas = 0
-número_para_adivinhar = math.random(1, 100)
+numero_de_tentativas = 0
+numero_para_adivinhar = math.random(1, 100)
 
 print("Tente adivinhar o número aleatório entre 1 e 100!")
 
 repeat
-        chute_do_usuário = tonumber(io.read())
-        número_de_tentativas = número_de_tentativas + 1
+	chute_do_usuario = tonumber(io.read())
+	numero_de_tentativas = numero_de_tentativas + 1
 
-        if número_para_adivinhar < chute_do_usuário then
-                print("O número é mais baixo!")
-        end
+	if numero_para_adivinhar < chute_do_usuario then
+		print("O número é mais baixo!")
+	end
 
-        if número_para_adivinhar > chute_do_usuário then
-                print("O número é mais alto!")
-        end
-until chute_do_usuário == número_para_adivinhar
+	if numero_para_adivinhar > chute_do_usuario then
+		print("O número é mais alto!")
+	end
+until chute_do_usuario == numero_para_adivinhar
 
-print("Você ganhou em " .. número_de_tentativas .. " tentativas!")
+print("Você ganhou em " .. numero_de_tentativas .. " tentativas!")
 ```
 
 </div>
 
-## Parabéns, você agora finalizou seu primeiro programa Lua! 🎉
+## Parabéns, você agora concluiu seu primeiro programa Lua! 🎉
 
-Agora que você tem a base, vamos tentar melhorar nosso jogo atual para adicionar novas funcionalidades e aprender coisas novas pelo caminho!
+Agora que você tem as bases, vamos tentar melhorar nosso jogo atual para adicionar novas funcionalidades e vamos aprender coisas novas pelo caminho!

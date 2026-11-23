@@ -1,7 +1,7 @@
 use {
     super::{language::Language, style_code},
     itertools::Itertools,
-    maud::{html, Markup, PreEscaped},
+    maud::{Markup, PreEscaped, html},
     pulldown_cmark::Options,
     std::{collections::HashMap, sync::LazyLock},
     strum::IntoEnumIterator,
@@ -174,14 +174,13 @@ pub fn compute_pages<P: AsRef<std::path::Path> + std::fmt::Display>(
         VecOrStr::Vec(v) => {
             v.iter()
                 .flat_map(|page| Language::iter().map(|lang| (*page, lang)))
-                .map(|(page, lang)| {
+                .filter_map(|(page, lang)| {
                     println!("{}&  {}", path.to_string(), page);
                     let file_content = search_file_recursively(
                         path.as_ref().join(lang.to_string()),
                         &format!("{page}.md"),
                     )
-                    .unwrap()
-                    .unwrap();
+                    .unwrap()?;
 
                     let parser = pulldown_cmark::Parser::new_ext(&file_content, Options::all());
                     let mut html_output = String::new();
@@ -231,7 +230,7 @@ pub fn compute_pages<P: AsRef<std::path::Path> + std::fmt::Display>(
 
 
 
-                    (((*page).to_owned(), lang), html_output)
+                    Some((((*page).to_owned(), lang), html_output))
                 })
                 .collect()
         },

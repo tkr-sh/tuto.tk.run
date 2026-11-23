@@ -2,7 +2,7 @@
 user_guess = tonumber(read())
 ```
 
-Ok, so this code might seems weird (a function in a function?), but it can be seen at:
+Ok, so this code might seem weird (a function in a function?), but it can be seen as:
 
 ```lua
 read_value = read()
@@ -11,11 +11,11 @@ user_guess = tonumber(read_value)
 
 What happens is the following:
 1. Lua wants to compute the right value 
-2. Lua wants to execute `tonumber`, but for that, it needs all of it inputs to have values
-3. Therefore, when it sees `read()`, it instanly try to run it so the function produces the value
-4. After that `read()` is ran and has returned a value, `tonumber` can now be executed!
+2. Lua wants to execute `tonumber`, but for that, it needs all of its inputs to have values
+3. Therefore, when it sees `read()`, it instantly tries to run it so the function produces the value
+4. After that `read()` has run and has returned a value, `tonumber` can now be executed!
 
-### Ok, but what is `read()` doing ?
+### Ok, but what is `read()` doing?
 
 `read()` asks the user for a string and captures it.
 
@@ -31,13 +31,13 @@ print(read())
 
 </div>
 
-### And what about `tonumber` ?
+### And what about `tonumber`?
 
-Since `read()` gets a `string` from the user, we cannot compare it to our random number, because you cannot compare a `string` that could have non digit characters to a `number` (e.g. `"x4%$A" > 3` doesn't make sense)
+Since `read()` gets a `string` from the user, we cannot compare it to our random number, because you cannot compare a `string` that could have non-digit characters to a `number` (e.g. `"x4%$A" > 3` doesn't make sense)
 
 Therefore, we need to convert the input of the user to a number and this is exactly what `tonumber` is doing!
 
-This function will return `nil` if it's input is not a valid number.
+This function will return `nil` if its input is not a valid number.
 
 <div class="runner">
 

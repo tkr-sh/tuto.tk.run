@@ -27,9 +27,9 @@ What this program does is creating the game of "find the number":
 ```
 Try to guess the random number between 1 and 100!
 50
-The number is higher
+The number is higher!
 75
-The number is lower
+The number is lower!
 62
 You won in 3 tries!
 ```

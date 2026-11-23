@@ -13,7 +13,7 @@ use {
         response::{IntoResponse, Response, Sse},
     },
     datastar::prelude::PatchElements,
-    flate2::{write::GzEncoder, Compression},
+    flate2::{Compression, write::GzEncoder},
     futures::Stream,
     hyper::header::{ACCEPT_ENCODING, CONTENT_ENCODING, CONTENT_TYPE, VARY},
     itertools::Itertools,

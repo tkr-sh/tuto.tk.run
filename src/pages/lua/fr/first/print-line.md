@@ -1,5 +1,5 @@
 ```lua
-print("Essaye de deviner le nombre aléatoire entre 1 et 100 !")
+print("Essayez de deviner le nombre aléatoire entre 1 et 100 !")
 ```
 
 Cette ligne est également un appel de fonction ! On peut le voir puisqu'on a le nom `print` mais avec des parenthèses après son nom !
@@ -29,7 +29,7 @@ Ce qui affichera le contenu de la variable `l_age_de_mon_grand_pere`. Dans notre
 
 ## Maintenant que vous savez cela
 
-Maintenant que vous savez cette fonction très utile, je vous présente l'_"**✨️Exécuteur Lua✨️**"_ et l'_"**✨️Éditeur Lua interactif✨️**"_ sur lequel vous pouvez exécuter vos propres programmes :
+Maintenant que vous connaissez cette fonction très utile, je vous présente l'_"**✨️Exécuteur Lua✨️**"_ et l'_"**✨️Éditeur Lua interactif✨️**"_, sur lesquels vous pouvez exécuter vos propres programmes :
 
 <div class="runner">
 
@@ -39,7 +39,7 @@ print("Bonjour le monde !")
 
 </div>
 
-Vous pouvez voir que cela se ré-exécute chaque fois que vous cliquez sur "Exécuter" avec cet exemple
+Vous pouvez voir que cela se ré-exécute chaque fois que vous cliquez sur « Run » avec cet exemple
 
 <div class="runner">
 

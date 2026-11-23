@@ -10,6 +10,10 @@ type LuaRunHandlers = {
 
 const luaFactory = new wasmoon.LuaFactory();
 
+// Lua's nil reaches JS as null/undefined; Lua prints it as "nil".
+const toLuaString = (value: unknown): string =>
+    value === null || value === undefined ? "nil" : `${value}`;
+
 const runLua = async (code: string, handlers: LuaRunHandlers): Promise<void> => {
     const lua = await luaFactory.createEngine();
 
@@ -29,7 +33,7 @@ const runLua = async (code: string, handlers: LuaRunHandlers): Promise<void> => 
 
         lua.global.set("random", lua.global.get("math").random);
         lua.global.set("print", (...args: any[]) => {
-            const line = args.map(a => `${a}`).join("\t");
+            const line = args.map(toLuaString).join("\t");
             alert(line);
             handlers.onPrint(line);
         });

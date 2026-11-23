@@ -21,17 +21,17 @@ repeat
 until user_guess == number_to_guess
 ```
 
-But first of all... what are `repeat` and `until` and why are their so special ? Aren't they just some weird variables ?
+But first of all... what are `repeat` and `until` and why are they so special? Aren't they just some weird variables?
 
 You might remember the definition of a variable
 
-> `the_name_of_the_variable` can be anything. Excepted `true`, `false`, `nil` (and other that we'll see later)
+> `the_name_of_the_variable` can be anything. Except for `true`, `false`, `nil` (and others that we'll see later)
 
 And the later... is now!
 
 ## Keywords
 
-`repeat` and `until` are what we call "keywords". Keywords are special name, that instead of having a value (like variables) or doing some computation (like functions), are instructions that tells Lua to take certain decisions.
+`repeat` and `until` are what we call "keywords". Keywords are special names, that instead of having a value (like variables) or doing some computation (like functions), are instructions that tell Lua to take certain decisions.
 
 In our example of `repeat`/`until`, everything that is between `repeat` and `until` will be repeated until a certain condition is met. When the execution arrives to `until`, it checks if it wants to rerun, and if it wants, the code goes back to `repeat`, and repeats.
 
@@ -39,13 +39,13 @@ This kind of behaviour - to repeat some code until _something_ - is called a "lo
 
 Most of the time, you want to exit your loop at a certain point...
 
-### But how to know when to exit ?
+### But how to know when to exit?
 
-When using loops like `until`, you must provide a `boolean` (`true` or `false`) to it, to tell it if you want to continue looping.
+When using loops like `until`, you must provide a `boolean` (`true` or `false`) to it, to tell it when to stop looping.
 
 And most of the time, you do that with relational operators:
 
-- `==`: Check if two values are equals. **NOT TO BE CONFUSED WITH 1 `=`**. 1 `=` is to assign a value, 2 `=` (`==`) is to check that 2 values are equals. If they are the same, the value is `true` else `false`
+- `==`: Check if two values are equal. **NOT TO BE CONFUSED WITH 1 `=`**. 1 `=` is to assign a value, 2 `=` (`==`) is to check that 2 values are equal. If they are the same, the value is `true` else `false`
 - `~=`: Check that two values are different. If they are different the value is `true` else `false`
 - `>`: Check that the left value is greater than the right one. If it is, the value is `true` else `false`
 - `<`: Check that the left value is less than the right one. If it is, the value is `true` else `false`
@@ -81,7 +81,7 @@ until age == 4
 ```
 </div>
 
-- `while`: While loops are very similar to `repeat`/`until` loop, but it's in the other way around! You loop while the condition is met! After the condition, you use the `do` keyword to start executing the code, and you loop back to the start when you see the `end` keyword. In most situation where you can use `repeat` you can also use `while`. It's mostly a personal taste.
+- `while`: While loops are very similar to `repeat`/`until` loop, but the other way around! You loop while the condition is met! After the condition, you use the `do` keyword to start executing the code, and you loop back to the start when you see the `end` keyword. In most situations where you can use `repeat` you can also use `while`. It's mostly a personal taste.
 
 <div class="runner">
 
@@ -94,7 +94,7 @@ end
 ```
 </div>
 
-- `for`: The last loop is the `for` loop and it's kind of diferent, because you already know how many times you want to iterate. And you define from which number to which number you want to iterate. At the end of an iteration, it will automatically increment `age` by `1`!
+- `for`: The last loop is the `for` loop and it's kind of different, because you already know how many times you want to iterate. And you define from which number to which number you want to iterate. At the end of an iteration, it will automatically increment `age` by `1`!
 
 <div class="runner">
 
@@ -108,7 +108,7 @@ end
 
 ## Back to our case
 
-In our case, we want to keep asking the user for a number until it founds the correct one. Therefore we 
+In our case, we want to keep asking the user for a number until it finds the correct one. Therefore we 
 ```lua
 repeat
     ...

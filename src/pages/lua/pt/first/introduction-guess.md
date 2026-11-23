@@ -1,4 +1,4 @@
-Este é o primeiro programa que estudaremos! Não se preocupe, vamos passar por ele MUITO lentamente, então está tudo bem se você não entender nada ainda!
+Este é o primeiro programa que vamos estudar! Não se preocupe, vamos analisá-lo MUITO lentamente, então está tudo bem se você não entender nada ainda!
 
 ```lua
 numero_de_tentativas = 0

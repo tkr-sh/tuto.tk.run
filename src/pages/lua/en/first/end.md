@@ -6,7 +6,7 @@ We previously incremented it just after getting the user data with
 number_of_tries = number_of_tries + 1
 ```
 
-But know, we would like to print a congratulation message and at the same time, how many tries did it take ?
+But now, we would like to print a congratulation message and, at the same time, how many tries it took?
 
 It's time to learn the last operator before the end of this first game:
 
@@ -60,15 +60,15 @@ print("You won in " .. number_of_tries .. " tries!")
 
 ## WOW.
 
-Wow! Isn't it ?
+Wow! Isn't it?
 
-You're ready to become a programmer now :) !
+You're ready to become a programmer now :)!
 
-## Is it over ?
+## Is it over?
 
 Yes and no.
 
-Sadly, I oversimplified a thing: usually you can't execute `read` and `random` like that. Lua likes to put "built-in"s function in some categories: `math` (for mathematicals functions), `io` (for input / output interactions), `os` (to interact with your operating system), ...
+Sadly, I oversimplified a thing: usually you can't execute `read` and `random` like that. Lua likes to put built-in functions in some categories: `math` (for mathematical functions), `io` (for input / output interactions), `os` (to interact with your operating system), ...
 
 And therefore, when you want to use specific functions that are part of a category, you need to call them like `category.the_function()`
 
@@ -102,4 +102,4 @@ print("You won in " .. number_of_tries .. " tries!")
 
 ## Congratulations, you have now finished your first Lua program! 🎉
 
-Now that you have the basis, we will try to improve our current game to add new functionnalities, and we are going to learn new things on the way!
+Now that you have the basis, we will try to improve our current game to add new functionalities, and we are going to learn new things on the way!

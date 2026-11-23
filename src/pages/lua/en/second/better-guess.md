@@ -1,0 +1,1 @@
+Now that we have done our base game, we can try to improve it! Maybe you stumble across some bugs while testing it, or maybe you have some ideas of how to improve it? In this section, we'll discover some new Lua concepts while improving our game!

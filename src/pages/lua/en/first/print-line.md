@@ -2,13 +2,13 @@
 print("Try to guess the random number between 1 and 100!")
 ```
 
-This line is also a call to a function! We can see it since we have the name `print` but with parenthesis after it's name!
+This line is also a call to a function! We can see it since we have the name `print` but with parenthesis after its name!
 
 This function takes a string as its first and only parameter. But... we never put the output into a variable.
 
-## Why ?
+## Why?
 
-Because `print` doesn't return a value. `print` is a special function that display to the user the data that it receives in it's input.
+Because `print` doesn't return a value. `print` is a special function that displays to the user the data that it receives in its input.
 
 For example, let's take back our previous example:
 
@@ -17,7 +17,7 @@ the_best_number = 40 + 2
 my_grandpa_age = the_best_number * 2
 ```
 
-How do I know what is the value of `my_grandpa_age` ? I could guess by doing the calculation in my head, but when the program becomes more complex, this isn't always possible.
+How do I know what is the value of `my_grandpa_age`? I could guess by doing the calculation in my head, but when the program becomes more complex, this isn't always possible.
 
 Therefore, we can just do 
 
@@ -39,7 +39,7 @@ print("Hello world!")
 
 </div>
 
-You can see that this is re-run everytime you click "Run" with this example
+You can see that this is re-run every time you click "Run" with this example
 
 <div class="runner">
 

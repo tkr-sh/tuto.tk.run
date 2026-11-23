@@ -4,19 +4,19 @@ Ahora que sabemos cómo
 2. obtener la entrada del usuario
 3. hacer bucles
 
-Necesitamos ayudar al usuario diciéndole si su número es menor o mayor que el correcto.
+Necesitamos ayudar al usuario indicándole si su número es menor o mayor que el número secreto.
 
 Para eso, vamos a usar una nueva palabra clave que utilizarás con frecuencia: `if`
 
-Lo que hace `if` es básicamente ejecutar código dependiendo de una condición. Los bucles comprueban la condición para repetir, y `if` comprueba la condición solo para ejecutar una vez.
+Lo que hace `if` es básicamente ejecutar código dependiendo de una condición. Los bucles comprueban una condición para seguir repitiendo, y `if` comprueba una condición solo para ejecutar una vez.
 
-Así que por ejemplo, podemos comprobar si el usuario ingresa `42`, y si es así, podemos saludarlo con un mensaje especial.
+Por ejemplo, podemos comprobar si el usuario ingresa `42`, y si es así, podemos saludarlo con un mensaje especial.
 <div class="runner">
 
 ```lua
 numero_bueno = 42
 
-if numero_bueno == tonumber(leer()) then
+if numero_bueno == tonumber(read()) then
     print("¡Buena elección!")
 end
 ```
@@ -26,42 +26,42 @@ end
 Entonces en nuestro juego
 
 ```lua
-if numero_a_adivinar < intento_del_usuario then
-    print("El número es menor!")
+if numero_a_adivinar < intento_usuario then
+    print("¡El número es más bajo!")
 end
 
-if numero_a_adivinar > intento_del_usuario then
-    print("El número es mayor!")
+if numero_a_adivinar > intento_usuario then
+    print("¡El número es más alto!")
 end
 ```
 
-comprobamos si el número es menor/mayor, y dependiendo de eso, imprimimos un mensaje para ayudar al usuario.
+comprobamos si el número es menor o mayor, y dependiendo de eso, mostramos un mensaje para ayudar al usuario.
 
-Si el usuario encuentra el número correcto se detiene el bucle debido a:
+Si el usuario encuentra el número correcto, el bucle se detendrá gracias a:
 
 ```lua
-hasta intento_del_usuario == numero_a_adivinar
+until intento_usuario == numero_a_adivinar
 ```
 
 <div class="runner">
 
 ```lua
 numero_a_adivinar = 42
-intento_del_usuario = tonumber(leer())
+intento_usuario = tonumber(read())
 
-if numero_a_adivinar < intento_del_usuario then
-    print("El número es menor!")
+if numero_a_adivinar < intento_usuario then
+    print("¡El número es más bajo!")
 end
 
-if numero_a_adivinar > intento_del_usuario then
-    print("El número es mayor!")
+if numero_a_adivinar > intento_usuario then
+    print("¡El número es más alto!")
 end
 
-if numero_a_adivinar == intento_del_usuario then
+if numero_a_adivinar == intento_usuario then
     print("¡Correcto!")
 end
 ```
 
 </div>
 
-Y con eso hecho, solo tenemos que hacer un buen final...
+Y con eso hecho, solo tenemos que crear un buen final...

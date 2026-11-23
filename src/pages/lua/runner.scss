@@ -18,6 +18,15 @@
     margin-top: 10px;
     padding: 10px;
     background: #1B1B1B;
+
+    .input {
+      color: #999;
+      font-style: italic;
+    }
+
+    .err {
+      color: #ff6b6b;
+    }
   }
 
   footer {

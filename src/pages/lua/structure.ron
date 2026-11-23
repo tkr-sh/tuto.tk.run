@@ -3,9 +3,9 @@ Directory(
     page: None,
     title: Title(
         en: "Home",
-        es: "Home",
-        pt: "Home",
-        fr: "Home",
+        es: "Inicio",
+        pt: "Início",
+        fr: "Accueil",
         de: "Home",
     ),
     pages: [
@@ -43,9 +43,9 @@ Directory(
                 ), page: "second-line"),
                 Page(title: Title (
                     en: "Print line",
-                    es: "Print línea",
-                    pt: "Print linha",
-                    fr: "Print la ligne",
+                    es: "Línea print",
+                    pt: "Linha print",
+                    fr: "Ligne print",
                     de: "Print line",
                 ), page: "print-line"),
                 Page(title: Title (
@@ -57,9 +57,9 @@ Directory(
                 ), page: "repeat-until"),
                 Page(title: Title (
                     en: "Read",
-                    es: "Read",
-                    pt: "Read",
-                    fr: "Read",
+                    es: "Leer",
+                    pt: "Ler",
+                    fr: "Lire",
                     de: "Read",
                 ), page: "read"),
                 Page(title: Title (
@@ -78,6 +78,87 @@ Directory(
                 ), page: "end"),
             ],
         ),
+        Directory(
+            is_ordered: true,
+            page: Some("better-guess"),
+            title: Title (
+                en: "Improve our game",
+                es: "Mejora nuestro juego",
+                pt: "Melhore nosso jogo",
+                fr: "Améliorer notre jeu",
+                de: "Errate die Zahl",
+            ),
+            pages: [
+                Page(title: Title (
+                    en: "Nil & Error handling",
+                    es: "Nil y manejo de errores",
+                    pt: "Nil e tratamento de erros",
+                    fr: "Nil et gestion des erreurs",
+                    de: "Das Ende ?",
+                ), page: "nil-and-error-handling"),
+                Page(title: Title (
+                    en: "Repeatable game",
+                    es: "Juego repetible",
+                    pt: "Jogo repetível",
+                    fr: "Jeu répétable",
+                    de: "Das Ende ?",
+                ), page: "repeat-game"),
+                Page(title: Title (
+                    en: "Functions",
+                    es: "Funciones",
+                    pt: "Funções",
+                    fr: "Fonctions",
+                    de: "Das Ende ?",
+                ), page: "functions"),
+                Directory(
+                    is_ordered: true,
+                    page: None,
+                    title: Title(
+                        en: "History",
+                        es: "Historial",
+                        pt: "Histórico",
+                        fr: "Historique",
+                        de: "Errate die Zahl",
+                    ),
+                    pages: [
+                        Page(title: Title (
+                            en: "Table introduction",
+                            es: "Introducción a las tablas",
+                            pt: "Introdução às tabelas",
+                            fr: "Introduction aux tables",
+                            de: "Das Ende ?",
+                        ), page: "table-init"),
+                        Page(title: Title (
+                            en: "Table length",
+                            es: "Longitud de una tabla",
+                            pt: "Comprimento de uma tabela",
+                            fr: "Longueur d'une table",
+                            de: "Das Ende ?",
+                        ), page: "table-accessing"),
+                        Page(title: Title (
+                            en: "Table iteration",
+                            es: "Recorrido de tablas",
+                            pt: "Iteração de tabelas",
+                            fr: "Parcours de table",
+                            de: "Das Ende ?",
+                        ), page: "table-iteration"),
+                        Page(title: Title (
+                            en: "Table & Game",
+                            es: "Tabla y juego",
+                            pt: "Tabela e jogo",
+                            fr: "Table et jeu",
+                            de: "Das Ende ?",
+                        ), page: "table-game"),
+                    ]
+                ),
+                Page(title: Title (
+                    en: "Local & Global",
+                    es: "Local y global",
+                    pt: "Local e global",
+                    fr: "Local et global",
+                    de: "Das Ende ?",
+                ), page: "local-global"),
+            ]
+        ),
     ],
 )
-

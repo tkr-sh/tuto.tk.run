@@ -1,0 +1,1 @@
+Agora que fizemos nosso jogo básico, podemos tentar melhorá-lo! Talvez você tenha encontrado alguns bugs ao testá-lo, ou talvez tenha ideias de como melhorá-lo. Nesta seção, vamos descobrir novos conceitos de Lua enquanto melhoramos nosso jogo!

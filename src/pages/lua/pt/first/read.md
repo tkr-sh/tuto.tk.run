@@ -15,11 +15,11 @@ O que acontece é o seguinte:
 3. Portanto, quando vê `read()`, tenta rodá-la instantaneamente para que a função produza um valor
 4. Depois disso, `read()` é executada e retorna um valor, e então `tonumber` pode ser executado!
 
-### Ok, mas o que é que `read()` faz?
+### Ok, mas o que `read()` faz?
 
 `read()` pede ao usuário uma string e a captura.
 
-**Antes de rodar o exemplo:** não desative a janela pop-up para este site, caso contrário você não poderá fazer leituras novamente!
+**Antes de rodar o exemplo:** não desative a janela pop-up deste site, caso contrário você não poderá usar `read()` novamente!
 
 
 
@@ -31,7 +31,7 @@ print(read())
 
 </div>
 
-### E o que é `tonumber`?
+### E quanto ao `tonumber`?
 
 Já que `read()` pega uma string do usuário, não podemos compará-la com nosso número aleatório, porque não se pode comparar uma string que pode ter caracteres não numéricos com um número (por exemplo, `"x4%$A" > 3` não faz sentido)
 
@@ -47,7 +47,7 @@ print(tonumber("Não é um número") == nil)
 
 </div>
 
-E você não pode adicionar `nil` + `número`, então entre com um número válido!
+E você não pode adicionar `nil` + `number`, então digite um número válido!
 
 <div class="runner">
 
@@ -57,4 +57,4 @@ print(tonumber(read()) + 1)
 
 </div>
 
-Irão ler a string do usuário, convertê-la para número e adicionar um a esse número, e se não for um número válido, `tonumber(read())` será um valor `nil`.
+Isso lerá a string do usuário, convertê-la-á para número e adicionará um a esse número, e se não for um número válido, `tonumber(read())` será um valor `nil`.

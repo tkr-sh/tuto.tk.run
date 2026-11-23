@@ -2,20 +2,20 @@
 supposition_utilisateur = tonumber(read())
 ```
 
-Ok, ce code peut sembler étrange (une fonction dans une autre?), mais il peut être vu comme suit :
+Ok, ce code peut sembler étrange (une fonction dans une autre ?), mais il peut être vu comme suit :
 
 ```lua
 valeur_lue = read()
 supposition_utilisateur = tonumber(valeur_lue)
 ```
 
-Ce qui se passe est le suivant :
+Voici ce qui se passe :
 1. Lua veut calculer la valeur de droite 
-2. Lua veut exécuter `tonumber`, mais pour cela, il lui faut que toutes ses entrées aient des valeurs
+2. Lua veut exécuter `tonumber`, mais pour cela, il faut que toutes ses entrées aient une valeur
 3. Par conséquent, lorsqu'il voit `read()`, il tente immédiatement de l'exécuter afin que la fonction produise une valeur
-4. Après que `read()` ait été exécuté et ait retourné une valeur, `tonumber` peut maintenant être exécuté !
+4. Une fois que `read()` a été exécutée et a retourné une valeur, `tonumber` peut maintenant être exécuté !
 
-### Ok, mais qu'est-ce que `read()` fait ?
+### Ok, mais que fait `read()` ?
 
 `read()` demande à l'utilisateur de saisir une chaîne de caractères et la capture.
 
@@ -55,4 +55,4 @@ print(tonumber(read()) + 1)
 
 </div>
 
-Lira la chaîne de caractères saisie par l'utilisateur, la convertira en nombre et ajoutera un à ce nombre. Si ce n'est pas un nombre valide, `tonumber(read())` sera une valeur `nil`. 
+Lira la chaîne de caractères saisie par l'utilisateur, la convertira en nombre et ajoutera un à ce nombre. Si ce n'est pas un nombre valide, `tonumber(read())` sera une valeur `nil`.

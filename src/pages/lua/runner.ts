@@ -1,5 +1,7 @@
 import { runLua } from "./run-lua";
 
+type OutLine = { text: string; cls?: string };
+
 const buildRunners = () => {
     $(".runner").forEach(runner => {
         let span = $new("header", {}, "Lua runner");
@@ -23,19 +25,17 @@ const buildRunners = () => {
 
         runBtn.on("click", async () => {
             rmOutput(runner);
-            let s = "";
+            const lines: OutLine[] = [];
+
+            const push = (text: string, cls?: string) => {
+                text.split("\n").forEach(t => lines.push({text: t, cls}));
+                addOutput(runner, lines);
+            };
 
             await runLua(runner.$("pre")[0].text(), {
-                onPrint: line => {
-                    s += line + "\n";
-                    addOutput(runner, s);
-                },
-                onInput: line => {
-                    s += line + "\n";
-                },
-                onError: err => {
-                    addOutput(runner, s + "\n" + err);
-                },
+                onPrint: line => push(line),
+                onInput: line => push(line, "input"),
+                onError: err => push(err, "err"),
             });
         });
     });
@@ -46,14 +46,14 @@ const rmOutput = (c: HTMLElement) => {
         c.removeChild(c.children[c.children.length - 1])
     }
 }
-const addOutput = (c: HTMLElement, stdout: string) => {
+const addOutput = (c: HTMLElement, lines: OutLine[]) => {
     rmOutput(c);
 
     const newOutput = $new(
         "div",
         {className: "output"},
         "",
-        stdout.split("\n").map(e => $new("div", {}, e))
+        lines.map(line => $new("div", {className: line.cls ?? ""}, line.text))
     );
     c.add(newOutput)
 }

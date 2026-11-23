@@ -4,11 +4,11 @@ Now that we know how to
 2. get user input
 3. loop
 
-We need to help the user by telling it if he/she's lower or above the correct number.
+We need to help the user by telling them whether their guess is lower or higher than the secret number.
 
 For that, we'll use a new keyword, that you'll often find yourself using: `if`
 
-What `if` is doing, is basically executing code depending on condition. Loops check for condition to loop, and `if` check for condition just to run once.
+What `if` is doing, is basically executing code depending on a condition. Loops check for a condition to loop, and `if` checks for a condition just to run once.
 
 So for example, we can check if the user inputs `42`, and if so, we can greet him/her with a special message.
 <div class="runner">

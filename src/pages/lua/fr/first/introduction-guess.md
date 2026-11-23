@@ -1,4 +1,4 @@
-Ceci est le premier programme que nous allons étudier ! Ne vous inquiétez pas, nous allons passer à travers cela TRÈS lentement, donc ce n'est pas grave si vous ne comprenez rien pour l'instant !
+Ceci est le premier programme que nous allons étudier ! Ne vous inquiétez pas, nous allons l'examiner TRÈS lentement, donc ce n'est pas grave si vous ne comprenez rien pour l'instant !
 
 ```lua
 nombre_d_essais = 0
