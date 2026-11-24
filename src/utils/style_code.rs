@@ -3,7 +3,7 @@ use {
     syntect::{
         highlighting::ThemeSet,
         html::highlighted_html_for_string,
-        parsing::{SyntaxSet, SyntaxSetBuilder},
+        parsing::{SyntaxDefinition, SyntaxSet, SyntaxSetBuilder},
     },
     tl::Node,
 };
@@ -46,6 +46,12 @@ static CUSTOM_SYNTAXES: LazyLock<SyntaxSet> = LazyLock::new(custom_syntaxes);
 
 fn custom_syntaxes() -> SyntaxSet {
     let mut ss = SyntaxSetBuilder::new();
-    ss.add_from_folder(".", true).unwrap();
+    let lua = SyntaxDefinition::load_from_str(
+        include_str!("../../syntaxes/Lua.sublime-syntax"),
+        true,
+        Some("Lua"),
+    )
+    .unwrap();
+    ss.add(lua);
     ss.build()
 }

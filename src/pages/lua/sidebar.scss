@@ -4,6 +4,9 @@ nav#sidebar {
     background: #222;
     transition: .3s;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
     min-width: 150px;
     width: 20vw;
     padding-inline: $sidebar-pi;
@@ -40,6 +43,10 @@ nav#sidebar {
     }
 
     > ol {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
         padding-left: 0px;
         list-style: none;
         > li {

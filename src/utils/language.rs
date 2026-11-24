@@ -17,6 +17,44 @@ pub(crate) enum Language {
     // #[strum(to_string = "de")]
     #[strum(to_string = "en")]
     Deustch,
+    #[strum(to_string = "zh")]
+    Mandarin,
+    #[strum(to_string = "ja")]
+    Japanese,
+    #[strum(to_string = "ko")]
+    Korean,
+    #[strum(to_string = "eo")]
+    Esperanto,
+    #[strum(to_string = "ar")]
+    Arabic,
+    #[strum(to_string = "ru")]
+    Russian,
+}
+
+impl Language {
+    pub(crate) fn from_path(path: &str) -> Option<Self> {
+        let segments = path
+            .split('/')
+            .filter(|segment| !segment.is_empty())
+            .collect::<Vec<_>>();
+        let lua_index = segments.iter().position(|segment| *segment == "lua")?;
+        let language = segments.get(lua_index.checked_sub(1)?)?;
+
+        Some(match *language {
+            "en" => Language::English,
+            "es" => Language::Spanish,
+            "pt" => Language::Portugese,
+            "fr" => Language::French,
+            "de" => Language::Deustch,
+            "zh" => Language::Mandarin,
+            "ja" => Language::Japanese,
+            "ko" => Language::Korean,
+            "eo" => Language::Esperanto,
+            "ar" => Language::Arabic,
+            "ru" => Language::Russian,
+            _ => return None,
+        })
+    }
 }
 
 impl TryFrom<&Request> for Language {
@@ -24,6 +62,10 @@ impl TryFrom<&Request> for Language {
 
     fn try_from(req: &Request) -> Result<Self, Self::Error> {
         use std::str::FromStr;
+
+        if let Some(language) = Self::from_path(req.uri().path()) {
+            return Ok(language);
+        }
 
         crate::utils::language::Language::from_str(match req.headers().get("host") {
             Some(host) => {
@@ -47,6 +89,12 @@ impl std::str::FromStr for Language {
             "pt" => Language::Portugese,
             "fr" => Language::French,
             "de" => Language::Deustch,
+            "zh" => Language::Mandarin,
+            "ja" => Language::Japanese,
+            "ko" => Language::Korean,
+            "eo" => Language::Esperanto,
+            "ar" => Language::Arabic,
+            "ru" => Language::Russian,
             _ => {
                 return Err(ServerErrorKind::DebugedError(String::from("Unknown language.")).into())
             },

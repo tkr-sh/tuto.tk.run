@@ -3,7 +3,7 @@ use {
         components::notfound,
         utils::{
             language::Language,
-            tree::{compute_pages, PageOrDirectory, Title},
+            tree::{PageOrDirectory, Title, compute_pages},
             wini::buffer::buffer_to_string,
         },
     },
@@ -14,7 +14,7 @@ use {
     },
     datastar::{consts::ElementPatchMode, prelude::PatchElements},
     itertools::Itertools,
-    maud::{html, Markup, PreEscaped},
+    maud::{Markup, PreEscaped, html},
     std::{collections::HashMap, convert::Infallible, sync::LazyLock},
     wini_macros::page,
 };
@@ -37,8 +37,9 @@ pub async fn render(req: Request) -> Markup {
         .uri()
         .path()
         .split('/')
-        .skip(2)
-        .next()
+        .filter(|segment| !segment.is_empty())
+        .skip_while(|segment| *segment != "lua")
+        .nth(1)
         .unwrap_or("introduction");
 
     #[cfg(feature = "random-lang")]
@@ -69,14 +70,14 @@ pub async fn render(req: Request) -> Markup {
                 (PAGE_TITLE_BY_PATH.get(requested_page).map(|title| title.str_by_language(&language)).unwrap_or_else(|| &""))
             }
             #flags data-class:visible="$showFlags" {
-                button data-on:click="$showFlags = !$showFlags" {
-                    img src="/lang.svg";
+                button data-on:click="$showFlags = !$showFlags" aria-label="Change language" {
+                    img src="/lang.svg" alt="";
                 }
                 ul {
-                    @for lang in ["en", "es", "pt", "fr", "de"] {
+                    @for lang in ["en", "es", "pt", "fr", "de", "zh", "ja", "ko", "eo", "ar", "ru"] {
                         li {
-                            a href=(format!("https://tuto.tk.run/{lang}/lua/{requested_page}")) {
-                                img src=(format!("/flag/{lang}.svg"));
+                            a href=(format!("/{lang}/lua/{requested_page}")) title=(lang.to_uppercase()) {
+                                img src=(format!("/flag/{lang}.svg")) alt="";
                             }
                         }
                     }
@@ -86,14 +87,17 @@ pub async fn render(req: Request) -> Markup {
         main
             data-init="const f = () => {if (typeof onNewPage !== 'undefined') { onNewPage() } else {setTimeout(f, 10)} }; f()"
         {
-            #content class=(requested_page) {
+            #content
+                dir=(if language == Language::Arabic { "rtl" } else { "ltr" })
+                class=(requested_page)
+            {
                 (PreEscaped(result))
             }
         }
         footer.buttons-previous-next {
             @if let Some(previous_page) = previous_page {
                 button.previous.lua-button
-                    data-on:click={"@get('/ds/lua/"(previous_page)"')"}
+                    data-on:click=(format!("@get('/ds/{language}/lua/{previous_page}')"))
                 {
                     "Previous"
                 }
@@ -102,7 +106,7 @@ pub async fn render(req: Request) -> Markup {
             }
             @if let Some(next_page) = next_page {
                 button.next.lua-button
-                    data-on:click={"@get('/ds/lua/"(next_page)"')"}
+                    data-on:click=(format!("@get('/ds/{language}/lua/{next_page}')"))
                 {
                     "Next"
                 }

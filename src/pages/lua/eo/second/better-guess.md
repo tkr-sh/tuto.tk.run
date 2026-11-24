@@ -1,0 +1,1 @@
+Nun, kiam ni faris nian bazan ludon, ni povas provi plibonigi ĝin! Eble vi renkontos iujn cimojn dum testado, aŭ eble vi havas ideojn pri kiel plibonigi ĝin? En ĉi tiu sekcio, ni malkovros iujn novajn Lua-konceptojn dum ni plibonigos nian ludon!

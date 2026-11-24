@@ -1,0 +1,79 @@
+%YAML 1.2
+---
+name: Lua
+file_extensions:
+  - lua
+scope: source.lua
+
+contexts:
+  main:
+    - match: '--\[\['
+      scope: punctuation.definition.comment.begin.lua
+      push: comment-block
+    - match: '--.*$'
+      scope: comment.line.double-dash.lua
+    - match: '\[\['
+      scope: string.quoted.multiline.lua
+      push: string-block
+    - match: '"'
+      scope: string.quoted.double.lua
+      push: string-double
+    - match: "'"
+      scope: string.quoted.single.lua
+      push: string-single
+    - match: '([.:])\s*([A-Za-z_][A-Za-z0-9_]*)(?=\s*\()'
+      captures:
+        1: keyword.operator.lua
+        2: entity.name.function.lua
+    - match: '\b(function)\s+([A-Za-z_][A-Za-z0-9_]*(?:[.:][A-Za-z_][A-Za-z0-9_]*)*)'
+      captures:
+        1: keyword.control.lua
+        2: entity.name.function.lua
+    - match: '\b(and|or|not)\b'
+      scope: keyword.other.lua
+    - match: '\b(break|do|else|elseif|end|for|function|goto|if|in|local|repeat|return|then|until|while)\b'
+      scope: keyword.control.lua
+    - match: '\b(true|false|nil)\b'
+      scope: constant.language.lua
+    - match: '\b0[xX][0-9a-fA-F]+(\.[0-9a-fA-F]+)?([pP][-+]?[0-9]+)?\b'
+      scope: constant.numeric.lua
+    - match: '\b[0-9]+(\.[0-9]+)?([eE][-+]?[0-9]+)?\b'
+      scope: constant.numeric.lua
+    - match: '\.[0-9]+([eE][-+]?[0-9]+)?'
+      scope: constant.numeric.lua
+    - match: '\b(print|type|pairs|ipairs|next|select|tonumber|tostring|pcall|xpcall|error|assert|setmetatable|getmetatable|rawget|rawset|rawequal|rawlen|require|load|loadfile|dofile|collectgarbage)\b'
+      scope: support.function.lua
+    - match: '\b(math|string|table|io|os|coroutine|debug|utf8|package)\b'
+      scope: support.class.lua
+    - match: '\b([A-Za-z_][A-Za-z0-9_]*)(?=\s*\()'
+      scope: entity.name.function.lua
+    - match: '(==|~=|<=|>=|//|\.\.|::|[-+*/%^#=<>;:,.])'
+      scope: keyword.operator.lua
+
+  comment-block:
+    - meta_scope: comment.block.lua
+    - match: '\]\]'
+      scope: punctuation.definition.comment.end.lua
+      pop: true
+
+  string-block:
+    - meta_scope: string.quoted.multiline.lua
+    - match: '\]\]'
+      scope: string.quoted.multiline.lua
+      pop: true
+
+  string-double:
+    - meta_scope: string.quoted.double.lua
+    - match: '\\.'
+      scope: constant.character.escape.lua
+    - match: '"'
+      scope: string.quoted.double.lua
+      pop: true
+
+  string-single:
+    - meta_scope: string.quoted.single.lua
+    - match: '\\.'
+      scope: constant.character.escape.lua
+    - match: "'"
+      scope: string.quoted.single.lua
+      pop: true

@@ -35,6 +35,12 @@ pub(crate) struct Title<'l> {
     pt: &'l str,
     fr: &'l str,
     de: &'l str,
+    zh: &'l str,
+    ja: &'l str,
+    ko: &'l str,
+    eo: &'l str,
+    ar: &'l str,
+    ru: &'l str,
 }
 
 impl<'l> Title<'l> {
@@ -45,6 +51,12 @@ impl<'l> Title<'l> {
             Language::Portugese => self.pt,
             Language::French => self.fr,
             Language::Deustch => self.de,
+            Language::Mandarin => self.zh,
+            Language::Japanese => self.ja,
+            Language::Korean => self.ko,
+            Language::Esperanto => self.eo,
+            Language::Arabic => self.ar,
+            Language::Russian => self.ru,
         }
     }
 }
@@ -93,7 +105,7 @@ impl<'l> PageOrDirectory<'l> {
             PageOrDirectory::Page { title, page } => {
                 html! {
                     li.cursor
-                        data-on:click = {"@get('/ds/lua/"(page)"'); if (window.innerWidth < 1200) { $barHidden = true }"}
+                        data-on:click = {"@get('/ds/"(language)"/lua/"(page)"'); if (window.innerWidth < 1200) { $barHidden = true }"}
                     { (title.str_by_language(language)) }
                 }
             },
@@ -103,7 +115,7 @@ impl<'l> PageOrDirectory<'l> {
                 html! {
                     @if let Some(page) = page {
                         li.cursor
-                            data-on:click = {"@get('/ds/lua/"(page)"'); if (window.innerWidth < 1200) { $barHidden = true }"}
+                            data-on:click = {"@get('/ds/"(language)"/lua/"(page)"'); if (window.innerWidth < 1200) { $barHidden = true }"}
                         { (title.str_by_language(language)) }
                     } @else {
                         li { (title.str_by_language(language)) }

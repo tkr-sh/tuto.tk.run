@@ -23,16 +23,21 @@ pub async fn start() {
     let page_router = Router::new()
         .route("/lua", get(pages::lua::render))
         .route("/lua/{*wildcard}", get(pages::lua::render))
+        .route("/{lang}/lua", get(pages::lua::render))
+        .route("/{lang}/lua/{*wildcard}", get(pages::lua::render))
         .layer(middleware::from_fn(layouts::lua::render))
         // The editor has its own full-screen layout, so it is registered after
         // the `lua` layout middleware to bypass the tutorial sidebar.
         .route("/lua/editor", get(pages::lua::editor::render))
+        .route("/{lang}/lua/editor", get(pages::lua::editor::render))
         .route("/", get(pages::home::render));
 
     let datastar_router = Router::new()
         .layer(middleware::from_fn(middlewares::datastar::replace))
         .route("/lua", get(pages::lua::datastar))
         .route("/lua/{*wildcard}", get(pages::lua::datastar))
+        .route("/{lang}/lua", get(pages::lua::datastar))
+        .route("/{lang}/lua/{*wildcard}", get(pages::lua::datastar))
         .layer(middleware::from_fn(middlewares::datastar::compress_sse))
         .layer(CompressionLayer::new());
 
@@ -49,7 +54,7 @@ pub async fn start() {
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))
         .nest("/ds", datastar_router)
-        .route("/{*wildcard}", get(handling_file::handle_file))
+        .fallback(handling_file::handle_file)
         .layer(CompressionLayer::new());
 
 
