@@ -1,5 +1,8 @@
 // Absolute path: the build doesn't attach cross-folder relative imports.
+import { decodeCodeFromUrl, encodeCodeToUrl } from "/src/pages/lua/code-url.js";
 import { runLua } from "/src/pages/lua/run-lua.js";
+
+const STORAGE_KEY = "lua-editor-code";
 
 const LUA_KEYWORDS = new Set([
     "and", "break", "do", "else", "elseif", "end", "for", "function", "goto",
@@ -89,9 +92,38 @@ const appendLine = (text: string, cls: string = "line") => {
     });
 };
 
+const readCodeFromHash = (): string | null => {
+    const match = window.location.hash.match(/[#&]code=([^&]+)/);
+    if (!match) return null;
+    try {
+        return decodeCodeFromUrl(match[1]);
+    } catch {
+        return null;
+    }
+};
+
+const saveCode = (code: string) => {
+    localStorage.setItem(STORAGE_KEY, code);
+    const hash = `#code=${encodeCodeToUrl(code)}`;
+    if (window.location.hash !== hash) {
+        window.history.replaceState(null, "", hash);
+    }
+};
+
+const loadCode = (ta: HTMLTextAreaElement) => {
+    const fromUrl = readCodeFromHash();
+    if (fromUrl !== null) {
+        ta.value = fromUrl;
+        return;
+    }
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved !== null) ta.value = saved;
+};
+
 const runCode = async () => {
     const code = ($("#code") as HTMLTextAreaElement).value;
 
+    saveCode(code);
     clearOutput();
     setStatus("Running...", "running");
 
@@ -166,6 +198,8 @@ const setupResizer = () => {
 const buildEditor = () => {
     const ta = $("#code") as HTMLTextAreaElement;
 
+    loadCode(ta);
+
     $("#run").on("click", runCode);
     $("#clear").on("click", () => {
         clearOutput();
@@ -183,7 +217,10 @@ const buildEditor = () => {
 
     ta.on("keyup", updateCursorPos);
     ta.on("click", updateCursorPos);
-    ta.on("input", renderHighlight);
+    ta.on("input", () => {
+        renderHighlight();
+        localStorage.setItem(STORAGE_KEY, ta.value);
+    });
     ta.on("scroll", syncScroll);
 
     setupResizer();

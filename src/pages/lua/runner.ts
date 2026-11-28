@@ -1,11 +1,17 @@
+import { encodeCodeToUrl } from "./code-url";
 import { runLua } from "./run-lua";
 
 type OutLine = { text: string; cls?: string };
 
 const buildRunners = () => {
     $(".runner").forEach(runner => {
+        const code = runner.$("pre")[0].text();
         let span = $new("header", {}, "Lua runner");
-        let openInEditor = $new("a", {className: "open lua-button", href: "/lua/editor"}, null);
+        let openInEditor = $new(
+            "a",
+            {className: "open lua-button", href: `/lua/editor#code=${encodeCodeToUrl(code)}`},
+            null
+        );
         openInEditor.textContent = "Open in editor";
 
         runner.prep(span)
